@@ -84,6 +84,7 @@
             } else {
                 let confirmRegister = confirm("Are you sure you want to register with the data above? (You can only change password after registering)");
                 if(confirmRegister) {
+                    alert("Registered successfully");
                     return true;
                 } else {
                     return false;

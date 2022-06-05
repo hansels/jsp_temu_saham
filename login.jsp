@@ -44,7 +44,7 @@
                 alert("Wrong password");
                 return false;
             } else {
-                alert("Login successfully");
+                alert("Logged in successfully");
                 return true;
             }
         }
