@@ -11,7 +11,7 @@
     <section>
         <div class="register">
             <h1 style="text-align: center; font-size: 40px;">Register</h1>
-            <form action="registerController.jsp" method="post" name="registerForm" onsubmit="return validateRegister()">
+            <form action="register_controller.jsp" method="post" name="registerForm" onsubmit="return validateRegister()">
                 <div class="form_input">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" placeholder="Input your name.."> 
