@@ -297,7 +297,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
             company.phone,
             company.url,
             company.id
-        }
+        };
         
         TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
@@ -311,6 +311,23 @@ class CompanyRepositoryImpl implements CompanyRepository {
         "   AND is_invested = 'N'";
 
         TemuSahamDbInstance.executeQuery(query, null);
+        return true;
+    }
+
+    @Override
+    public boolean createCompany(Company company) {
+        String query = "" +
+        "INSERT INTO Companies (user_id, category_id, name, description, location, investment_target, image, email, phone, url, founded_year)" +
+        "SELECT u.id, c.id, ?, ?, ?, ?, ?, ?, ?, ?, ?" +
+        "  FROM Users u, Categories c" +
+        " WHERE u.name = ? AND c.name = ?" +
+
+        Object[] parameters = new Object[] {
+            company.name, company.description, company.location, company.investment_target, company.image, company.email, company.phone, company.url, company.founded_year,
+            company.owner.name, company.categoryName
+        };
+
+        TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
     }
 }
