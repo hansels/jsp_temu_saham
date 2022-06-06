@@ -3,5 +3,6 @@
 <%!
 interface InvestmentRepository {
     public boolean addInvestment(Invesment invesment);
+    public List<Investment> getInvestmentByUserId(int userId);
 }
 %>

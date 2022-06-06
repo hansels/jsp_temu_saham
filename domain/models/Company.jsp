@@ -1,6 +1,7 @@
 <%!
 class Company {
     public int id;
+    public User owner;
     public String name;
     public String description;
     public String location;

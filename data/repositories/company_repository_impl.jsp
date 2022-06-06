@@ -2,8 +2,8 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%@ include file="../../domain/models/Company.jsp" %>
-<%@ include file="../../domain/repositories/CompanyRepository.jsp" %>
-<%@ include file="../sources/instances/TemuSahamDbInstance.jsp" %>
+<%@ include file="../../domain/repositories/company_repository.jsp" %>
+<%@ include file="../sources/instances/temu_saham_db_instance.jsp" %>
 
 <%!
 class CompanyRepositoryImpl implements CompanyRepository {
@@ -12,6 +12,8 @@ class CompanyRepositoryImpl implements CompanyRepository {
     public Company getCompanyById(int id) {
         String query = "" +
         "SELECT c.id" +
+        "     , u.name                          AS ownerName" +
+        "     , u.email                         AS ownerEmail" +
         "     , c.name" +
         "     , c.description" +
         "     , c.location" +
@@ -33,21 +35,26 @@ class CompanyRepositoryImpl implements CompanyRepository {
         "       " +
         "       JOIN Categories ca" +
         "       ON   ca.id = c.category_id" +
+        "       " +
+        "       JOIN Users u" +
+        "       ON  u.user_id = c.user_id" +
         " WHERE c.id = ?" +
         " GROUP BY c.id" +
-        "      , c.name" +
-        "      , c.description" +
-        "      , c.location" +
-        "      , ca.name" +
-        "      , c.investment_stock" +
-        "      , c.investment_target" +
-        "      , c.image" +
-        "      , c.email" +
-        "      , c.phone" +
-        "      , c.url" +
-        "      , c.founded_year" +
-        "      , c.is_invested" +
-        "      , c.is_completed";
+        "     , u.name" +
+        "     , u.email" +
+        "     , c.name" +
+        "     , c.description" +
+        "     , c.location" +
+        "     , ca.name" +
+        "     , c.investment_stock" +
+        "     , c.investment_target" +
+        "     , c.image" +
+        "     , c.email" +
+        "     , c.phone" +
+        "     , c.url" +
+        "     , c.founded_year" +
+        "     , c.is_invested" +
+        "     , c.is_completed";
 
         Object[] parameters = new Object[] { id };
 
@@ -58,6 +65,8 @@ class CompanyRepositoryImpl implements CompanyRepository {
             rowSet.beforeFirst();
             while(rowSet.next()) {
                 company.id = rowSet.getInt("id");
+                company.owner.name = rowSet.getInt("ownerName");
+                company.owner.email = rowSet.getSting("ownerEmail");
                 company.name = rowSet.getString("name");
                 company.description = rowSet.getString("description");
                 company.location = rowSet.getString("location");
@@ -89,9 +98,11 @@ class CompanyRepositoryImpl implements CompanyRepository {
     }
     
     @Override
-    public List<Company> getInvestedCompanyList() {
+    public List<Company> getInvestedCompanyListByUserId(int userId) {
         String query = "" +
         "SELECT c.id" +
+        "     , u.name                          AS ownerName" +
+        "     , u.email                         AS ownerEmail" +
         "     , c.name" +
         "     , c.description" +
         "     , c.location" +
@@ -113,8 +124,13 @@ class CompanyRepositoryImpl implements CompanyRepository {
         "       " +
         "       JOIN Categories ca" +
         "       ON   ca.id = c.category_id" +
-        " WHERE c.isInvested = 'T'" +
+        "       " +
+        "       JOIN Users u" +
+        "       ON  u.user_id = c.user_id" +
+        " WHERE u.user_id = ?" +
         " GROUP BY c.id" +
+        "     , u.name" +
+        "     , u.email" +
         "     , c.name" +
         "     , c.description" +
         "     , c.location" +
@@ -129,7 +145,9 @@ class CompanyRepositoryImpl implements CompanyRepository {
         "     , c.is_invested" +
         "     , c.is_completed";
 
-        RowSet rowSet = TemuSahamDbInstance.executeQuery(query, null);
+        Object[] parameters = new Object[] { userId };
+        
+        RowSet rowSet = TemuSahamDbInstance.executeQuery(query, parameters);
 
         List<Company> companyList = new ArrayList<>();
         Company company = new Company();
@@ -172,43 +190,50 @@ class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public List<Company> getCompanyListByKeyword(String keyword) {
         String query = "" +
-        "SELECT c.id " +
-        "     , c.name " +
-        "     , c.description " +
-        "     , c.location " +
-        "     , ca.name                         AS categoryName " +
-        "     , c.investment_stock              AS investmentStock " +
-        "     , c.investment_target             AS investmentTarget " +
-        "     , COALESCE(SUM(i.amount), 0)      AS investedAmount " +
-        "     , COALESCE(SUM(i.percentage), 0)  AS fulfilledPercentage " +
-        "     , c.image " +
-        "     , c.email " +
-        "     , c.phone " +
-        "     , c.url " +
-        "     , c.founded_year                  AS foundedYear " +
-        "     , c.is_invested                   AS isInvested " +
-        "     , c.is_completed                  AS isCompleted " +
-        "  FROM Companies c " +
-        "       LEFT JOIN Investments i " +
-        "       ON   i.company_id = c.id " +
+        "SELECT c.id" +
+        "     , u.name                          AS ownerName" +
+        "     , u.email                         AS ownerEmail" +
+        "     , c.name" +
+        "     , c.description" +
+        "     , c.location" +
+        "     , ca.name                         AS categoryName" +
+        "     , c.investment_stock              AS investmentStock" +
+        "     , c.investment_target             AS investmentTarget" +
+        "     , COALESCE(SUM(i.amount), 0)      AS investedAmount" +
+        "     , COALESCE(SUM(i.percentage), 0)  AS fulfilledPercentage" +
+        "     , c.image" +
+        "     , c.email" +
+        "     , c.phone" +
+        "     , c.url" +
+        "     , c.founded_year                  AS foundedYear" +
+        "     , c.is_invested                   AS isInvested" +
+        "     , c.is_completed                  AS isCompleted" +
+        "  FROM Companies c" +
+        "       LEFT JOIN Investments i" +
+        "       ON   i.company_id = c.id" +
         "       " +
-        "       JOIN Categories ca " +
-        "       ON   ca.id = c.category_id " +
+        "       JOIN Categories ca" +
+        "       ON   ca.id = c.category_id" +
+        "       " +
+        "       JOIN Users u" +
+        "       ON  u.user_id = c.user_id" +
         " WHERE is_completed = 'Y' " +
         "   AND UPPER(c.name) LIKE UPPER('%'+?+'%') " +
-        " GROUP BY c.id " +
-        "     , c.name " +
-        "     , c.description " +
-        "     , c.location " +
-        "     , ca.name " +
-        "     , c.investment_stock " +
-        "     , c.investment_target " +
-        "     , c.image " +
-        "     , c.email " +
-        "     , c.phone " +
-        "     , c.url " +
-        "     , c.founded_year " +
-        "     , c.is_invested " +
+        " GROUP BY c.id" +
+        "     , u.name" +
+        "     , u.email" +
+        "     , c.name" +
+        "     , c.description" +
+        "     , c.location" +
+        "     , ca.name" +
+        "     , c.investment_stock" +
+        "     , c.investment_target" +
+        "     , c.image" +
+        "     , c.email" +
+        "     , c.phone" +
+        "     , c.url" +
+        "     , c.founded_year" +
+        "     , c.is_invested" +
         "     , c.is_completed";
 
         Object[] paremeters = new Object[] { keyword };

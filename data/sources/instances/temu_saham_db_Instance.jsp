@@ -9,10 +9,10 @@
 <%@ page import="javax.sql.rowset.CachedRowSet" %>
 <%@ page import="javax.sql.rowset.RowSetProvider" %>
 
-<%@ include file="../entities/CategoriesEntity.jsp" %>
-<%@ include file="../entities/CompaniesEntity.jsp" %>
-<%@ include file="../entities/InvestmentsEntity.jsp" %>
-<%@ include file="../entities/UsersEntity.jsp" %>
+<%@ include file="../entities/categories_entity.jsp" %>
+<%@ include file="../entities/companies_entity.jsp" %>
+<%@ include file="../entities/investments_entity.jsp" %>
+<%@ include file="../entities/users_entity.jsp" %>
 
 <%!
 static class TemuSahamDbInstance {
