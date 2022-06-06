@@ -22,6 +22,7 @@ form{
     align-items: space-between;
     width: 70%;
     font-weight: bold;
+    margin-left: 12%;
 }
 
 label, input{
