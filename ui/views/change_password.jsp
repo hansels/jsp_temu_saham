@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Change Password | Temu Saham</title>
-    <link rel="stylesheet" href="../style/changepassword_style.css">
+    <link rel="stylesheet" href="../style/change_password_style.css">
 </head>
 <body>
     <section>
         <div class="changePassword">
             <h1 style="text-align: center; font-size: 40px;">Change Password</h1>
-            <form action="changePasswordController.jsp" method="post" name="changePasswordForm" onsubmit="return validateChangePassword()">
+            <form action="change_password_controller.jsp" method="post" name="changePasswordForm" onsubmit="return validateChangePassword()">
                 <div class="form_input">
                     <label for="pass">Old Password</label>
                     <input type="password" name="oldPassword" id="oldPassword" placeholder="Input your old password..">

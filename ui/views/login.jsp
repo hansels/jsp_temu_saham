@@ -12,7 +12,7 @@
         <div class="login_page">
             <h1 style="text-align: center; font-size: 40px;">Login</h1>
             <img src="../../assets/logo_temusaham.png" alt="Logo Tlp" class="logo_temusaham">
-            <form action="loginController.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
+            <form action="login_controller.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
                 <div class="login_input">
                     <div class="form_input">
                         <label for="email">Email Address</label>
