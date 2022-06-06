@@ -21,7 +21,7 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
             investment.amount,
             investment.amount,
             invsetment.companyId
-        }
+        };
         
         TemuSahamDbInstance.executeQuery(query, parameters);
 
