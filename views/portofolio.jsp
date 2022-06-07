@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio</title>
-    
-    <style>
-        .wrapper {
-            position: relative;
-            text-align: center;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Portofolio | TemuSaham</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <%@ include file = "database_tapi_boong.jsp" %>
 
-    <div class="wrapper">
-        <h3>Portofolio</h3>
-    </div>
+<body>
+    <%@ include file = "../database_tapi_boong.jsp" %>
+    <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+
+    <h1 style="text-align: center; font-size: 40px; padding-top: 30px">
+        Portofolio
+    </h1>
+
+    <br>
 
     <%
         String userIdString = request.getParameter("userId");
@@ -46,40 +47,58 @@
         }
     %>
 
-    <table border="1px" align="center">
-        <tr>
-            <td>
-                Total Investment:
-            </td>
-            <td>
-                <%= totalInvestment %>
-            </td>
-        </tr>
-    </table>
-
     <% if(investmentList.isEmpty()){ %>
         <div class="wrapper">
             <h4>You haven't make any investment yet, <a href="company_list.jsp">invest now</a></h4>
         </div>
     <% } else { %>
-        <table width="100%">
-            <tr>
-                <th>Company</th>
-                <th>Amount Invested</th>
-                <th>Percentage</th>
-                <th>Date Invested</th>
-            </tr>
-            <% for(int i = 0; i < investmentList.size(); ++i){ %>
-                <% Integer idx = investmentList.get(i); %>
-                <% int companyId = investmentCompanyId[idx]; %>
-                <tr align="center">
-                    <td><%= name[companyId] %></td>
-                    <td>$<%= investmentAmount[idx] %></td>
-                    <td><%= investmentPercentage[idx] %>%</td>
-                    <td><%= investmentDate[idx] %></td>
-                </tr>
-            <% } %>
-        </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Total Investasi Anda : Rp. <%= totalInvestment %>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    Total investasi anda dalam perusahaan-perusahaan yang anda miliki.
+                                </h6>
+                                <p class="card-text">
+                                    <%
+                                        for(int i = 0; i<investmentList.size(); ++i) {
+                                            int index = investmentList.get(i);
+                                            String companyName = name[index];
+                                            String date = investmentDate[index];
+                                            int amount = investmentAmount[index];
+                                            double percentage = investmentPercentage[index];
+                                            String percentageString = percentage + "%";
+                                            String amountString = "Rp. " + amount;
+                                    %>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <b>
+                                                <%= companyName %>
+                                            </b>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <%= date %>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <%= percentageString %>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <%= amountString %>
+                                        </div>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <% } %>
 </body>
 </html>

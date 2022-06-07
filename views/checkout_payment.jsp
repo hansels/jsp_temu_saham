@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Checkout Payment | Temu Saham</title>
-    <link rel="stylesheet" href="../style/checkout_style.css">
+    <link rel="stylesheet" href="../styles/checkout_style.css">
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <%
@@ -21,7 +25,7 @@
     %>
     <section>
         <div class="checkout">
-            <h1 style="text-align: center; font-size: 40px;">Checkout Payment</h1>
+            <h1 style="text-align: center; font-size: 40px; padding-top: 30px;">Checkout Payment</h1>
             <form action="confirm_payment.jsp" method="post" name="checkoutPaymentForm" onsubmit="return validateCheckoutPayment()">
                 <input type="hidden" name="companyId" value="<%= companyId %>">
                 <div class="form_input">
@@ -63,6 +67,8 @@
                         }
                     %>
                 </div>
+
+                <br>
 
                 <input type="submit" id="next" value="Next">
             </form>

@@ -2,40 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company List</title>
-    
-    <style>
-        td{
-            text-align: center;
-            vertical-align: middle;
-            width: 25%;
-        }
-        .wrapper {
-            position: relative;
-            text-align: center;
-        }
-        tr:hover { 
-            background: gray;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Company List | Temu Saham</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
     <%@ include file = "../database_tapi_boong.jsp" %>
+    <%@ include file="../navbars/navbar_views_not_login.jsp" %>
 
-    <div class="wrapper">
-        <h3>Company List</h3>
-    </div>
+    <h1 style="text-align: center; font-size: 40px; padding-top: 30px">
+        Company List
+    </h1>
 
     <%
         String searchQuery = request.getParameter("searchBar");
-        if(searchQuery == null)searchQuery = new String();
+        if(searchQuery == null) searchQuery = new String();
     %>
+
+    <br>
+    
     <form action="company_list.jsp" method="get" name="SearchCompany" onsubmit="return(validateSearch())">
-        <input type="search" name="searchBar" id="" value="<%=searchQuery%>" placeholder="Company Name">
-        <input type="submit" value="search">
+        <div class="input-group" style="padding-left: 40px; padding-right: 40px;">
+            <input type="text" class="form-control" name="searchBar" placeholder="Company Name">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
     </form>
+
+    <br>
 
     <%
         ArrayList<Integer> companyResult = new ArrayList<Integer>();
@@ -47,37 +47,50 @@
     %>
 
     <% if(companyResult.isEmpty()){ %>
-        <div class="wrapper">
-            <h3>No Result Found</h3>
-        </div>
+        <h1 style="text-align: center; font-size: 30px; padding-top: 30px">
+            No Result Found
+        </h1>
     <% } else { %>
-        <table class="table">
-            <tr>
-                <th><h4>Name</h4></th>
-                <th><h4>Company Description</h4></th>
-                <th><h4>Category</h4></th>
-                <th><h4>Location</h4></th>
-            </tr>
-            <% for(int i = 0; i < companyResult.size(); ++i){ %>
-                <% Integer idx = companyResult.get(i); %>
-                <tr onclick="window.location='company_detail.jsp?companyId=<%= Id[idx] %>';">
-                    <td>
-                        <img src="<%= image[idx] %>" width="60%">
-                        <h4><%= name[idx] %></h4>
-                    </td>
-                    <td>
-                        <%= shortDescription[idx] %>
-                    </td>
-                    <td>
-                        <%= category[idx] %>
-                    </td>
-                    <td>
-                        <%= location[idx] %>
-                    </td>
-                <tr>
-            <% } %>
-        </table>
-    <% } %>   
+    <%
+        int itemPerRow = 4;
+        int rowCount = companyResult.size() / itemPerRow;
+        int lastRowCount = companyResult.size() % itemPerRow;
+        if (lastRowCount > 0) {
+          rowCount++;
+        }
+
+        int itemIndex = 0;
+
+        for (int i = 0; i < rowCount; i++) {
+        if (i == (rowCount - 1) && lastRowCount > 0) {
+            itemPerRow = lastRowCount;
+        }
+    %>
+        <div class="row" style="padding-left: 40px; padding-right: 40px;">
+    <%
+        for (int j = 0; j < itemPerRow; j++) {
+            Integer idx = companyResult.get(itemIndex);
+    %>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="<%= image[idx] %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= name[idx] %> </h5>
+                      <p class="card-text"><%= shortDescription[idx] %></p>
+                      <a href="company_detail.jsp?companyId=<%= Id[idx] %>" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+            </div>
+    <%
+        itemIndex++;
+    }
+    %>
+        </div>
+        <br>
+        <% } %>   
+    <% } %>
+
+    <br>
     
     <script>
         function validateSearch(){

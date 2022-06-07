@@ -64,6 +64,6 @@
         }
     </script>
 
-    <%@ include file="../footers/footer.jsp" %>
+    <%@ include file="../footers/footer_with_fixed_bottom.jsp" %>
 </body>
 </html>

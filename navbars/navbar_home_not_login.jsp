@@ -9,7 +9,7 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="ms-auto navbar-nav">
-                <a class="nav-item nav-link active" href="home.jsp" style="font-size:20px;"><i class="fa fa-home padding-righter"></i>Home</a>
+                <a class="nav-item nav-link" href="home.jsp" style="font-size:20px;"><i class="fa fa-home padding-righter"></i>Home</a>
                 <a class="nav-item nav-link" href="views/company_list.jsp" style="font-size:20px;"><i class="fa-solid fa-building padding-righter"></i>Companies</a>
                 <a class="nav-item nav-link" href="views/contact.jsp" style="font-size:20px;"><i class="fa fa-address-book padding-righter"></i>Contact</a>
                 <a class="nav-item nav-link" href="views/login.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Login</a>
