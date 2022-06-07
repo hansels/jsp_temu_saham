@@ -38,9 +38,7 @@
             let oldPassword = document.forms["changePasswordForm"]["oldPassword"].value;
             let newPassword = document.forms["changePasswordForm"]["newPassword"].value;
             let confirmNewPassword = document.forms["changePasswordForm"]["confirmNewPassword"].value;
-
             let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-
             if(oldPassword == "") {
                 alert("Old password must not be empty");
                 return false;

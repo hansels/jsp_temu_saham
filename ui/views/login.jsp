@@ -16,12 +16,12 @@
                 <div class="login_input">
                     <div class="form_input">
                         <label for="email">Email Address</label>
-                        <input type="text" id="email" placeholder="Input your email..">
+                        <input type="text" name="email" placeholder="Input your email..">
                     </div>
     
                     <div class="form_input">
                         <label for="pass">Password</label>
-                        <input type="password" id="password" placeholder="Input your password..">
+                        <input type="password" name="password" placeholder="Input your password..">
                     </div>
     
                     <input type="submit" id="submit" value="Login">
