@@ -12,16 +12,16 @@
         <div class="login_page">
             <h1 style="text-align: center; font-size: 40px;">Login</h1>
             <img src="../../assets/logo_temusaham.png" alt="Logo Tlp" class="logo_temusaham">
-            <form action="loginController.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
+            <form action="login_controller.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
                 <div class="login_input">
                     <div class="form_input">
                         <label for="email">Email Address</label>
-                        <input type="text" id="email" placeholder="Input your email..">
+                        <input type="text" name="email" placeholder="Input your email..">
                     </div>
     
                     <div class="form_input">
                         <label for="pass">Password</label>
-                        <input type="password" id="password" placeholder="Input your password..">
+                        <input type="password" name="password" placeholder="Input your password..">
                     </div>
     
                     <input type="submit" id="submit" value="Login">

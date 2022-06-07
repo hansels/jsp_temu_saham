@@ -11,5 +11,5 @@
     }
 
 
-    response.sendRedirect("changePassword.jsp");
+    response.sendRedirect("change_password.jsp");
 %>

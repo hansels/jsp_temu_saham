@@ -11,39 +11,38 @@
     <section>
         <div class="register">
             <h1 style="text-align: center; font-size: 40px;">Register</h1>
-            <form action="registerController.jsp" method="post" name="registerForm" onsubmit="return validateRegister()">
+            <form action="register_controller.jsp" method="post" name="registerForm" onsubmit="return validateRegister()">
                 <div class="form_input">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Input your name.."> 
+                    <input type="text" name="name" placeholder="Input your name.."> 
                 </div>
 
                 <div class="form_input">
                     <label for="email">Email Address</label>
-                    <input type="text" id="email" placeholder="Input your email..">
+                    <input type="text" name="email" placeholder="Input your email..">
+                </div>
+
+                <div class="form_input">
+                    <label for="pass">Set up your password</label>
+                    <input type="password" name="password" placeholder="Input your password..">
+                </div>
+
+                <div class="form_input">
+                    <label for="pass">Confirmation your password</label>
+                    <input type="password" name="confirmPassword" placeholder="Please input your password again..">
                 </div>
 
                 <div class="form_input">
                     <label for="Information">Role</label> 
                     <div class="personal-information">
                         <div class="category_option">
-                            <label id="category" for="category">Category</label>
-                            <input type="radio" id="investor-category" class="label-category" value="Investor" name="category"> Investor
-                            <input type="radio" id="company-category" class="label-category" value="Company" name="category"> Company
+                            <input type="radio" id="investor-category" class="label-category" name="role" value="investor" > Investor
+                            <input type="radio" id="company-category" class="label-category" name="role" value="owner" > Company Owner
                         </div>
                     </div>
                 </div>
 
-                <div class="form_input">
-                    <label for="pass">Set up your password</label>
-                    <input type="password" id="password" placeholder="Input your password..">
-                </div>
-
-                <div class="form_input">
-                    <label for="pass">Confirmation your password</label>
-                    <input type="password" id="confirmPassword" placeholder="Please input your password again..">
-                </div>
-
-                <input type="submit" id="submit" value="Submit">
+                <input type="submit" id="submit" value="Register">
             </form>
         </div>
     </section>

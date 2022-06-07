@@ -12,9 +12,13 @@
     //And get company ID by last inserted company
     
     //TODO Add User to DB
-    //IF role = owner, then add User with company ID
-    //ELSE no need company ID
-
-
-    response.sendRedirect("register.jsp");
+    if(role.equals("investor")) {
+        // TODO Add User to DB
+        response.sendRedirect("login.jsp");
+    } else {
+        //TODO Add dummy company to DB
+        //And get company ID by last inserted company
+        //TODO Add User to DB with company ID
+        response.sendRedirect("create_company..jsp");
+    }
 %>
