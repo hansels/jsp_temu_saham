@@ -9,6 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        form {
+           text-align: center;
+        }
+
+        input[type="submit"] {
+            /* display: inline-block; */
+            border-radius: 13px;
+            background-color: #ee4e26;
+            width: 90px;
+            height: 43px;
+            margin: auto;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            border: none;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,57 +60,41 @@
             </div>
             <div class="col-md-8">
                 <h2>
-                    <%= name[idx] %>
+                    <%= name[idx] %> - <%= founded[idx] %> (<%= category[idx] %>)
                 </h2>
-                <h6>
-                    <%= description[idx] %>
-                </h6>
-                <h5>
-                    <%= phone[idx] %>
-                </h5>
-                <h5>
-                    <%= url[idx] %>
-                </h5>
-                <h5>
-                    <%= email[idx] %>
-                </h5>
-                <h5>
-                    <%= founded[idx] %>
-                </h5>
-                <h4>
-                    <%= category[idx] %>
-                </h4>
                 <h4>
                     <%= location[idx] %>
                 </h4>
+                <p>
+                    <%= description[idx] %>
+                </p>
+                <h3>
+                    Contact Us:
+                </h3>
+                <p>
+                    <i class="fas fa-phone-square"></i>
+                    <%= phone[idx] %>
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <%= email[idx] %>
+                </p>
+                <p>
+                    <i class="fas fa-link"></i>
+                    <%= url[idx] %>
+                </p>
             </div>
         </div>
     </div>
 
+    <br>
+
     <form action="checkout_payment.jsp" method="post" name="goToInvestForm">
-        <table>
-            <tr>
-                <td>
-                    Investment stock:
-                </td>
-                <td>
-                    <%= investment_stock[idx] %>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Investment target:
-                </td>
-                <td>
-                    $<%= investment_target[idx] %>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="Invest" name="Invest">
-                </td>
-            </tr>
-        </table>
+        <input type="submit" value="Invest" name="Invest">
     </form>
+
+    <br>
+    <br>
+    
 </body>
 </html>
