@@ -1,22 +1,20 @@
-
-
-body{
+body {
     margin: 0px;
     padding: 0px;
     font-family: Arial, 'Helvetica';
 }
 
-section a{
+section a {
     text-decoration: none;
 }
 
-.register{
+.register {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     align-items: space-between;
@@ -25,7 +23,8 @@ form{
     margin-left: 12%;
 }
 
-label, input{
+label,
+input {
     padding: 5px;
 }
 
@@ -37,25 +36,24 @@ label, input{
     font-weight: normal;
 }
 
-.personalID{
+.personalID {
     font-weight: normal;
 }
 
-input{
+input {
     background-color: #e4e6e3;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
     border-radius: 6px;
     border: none;
-    height: 20px;
+    height: 45px;
     size: 40px;
     width: 80%;
 }
 
-input[type="submit"]{
+input[type="submit"] {
     /* display: inline-block; */
     border-radius: 13px;
-    background-color: #ed9993;
+    background-color: #ee4e26;
     width: 90px;
     height: 43px;
     margin: 10px auto;
@@ -70,11 +68,11 @@ input[type="submit"]{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.register_form{
+.register_form {
     margin-left: 15%;
 }
 
-.form_input{
+.form_input {
     flex-direction: column;
     align-items: center;
     display: flex;
@@ -82,7 +80,7 @@ input[type="submit"]{
     margin: 5px;
 }
 
-.personal-information{
+.personal-information {
     flex-direction: column;
     align-items: center;
     display: flex;
@@ -98,17 +96,20 @@ input[type="submit"]{
     font-weight: normal;
 }
 
-@media only screen and (max-width: 535px){
-    input{
+@media only screen and (max-width: 535px) {
+    input {
         /* display: block; */
         margin-left: auto;
         margin-right: auto;
         /* margin-bottom: 3%; */
     }
-    .join h1{
+
+    .join h1 {
         font-size: 50px;
     }
-    label, input{
+
+    label,
+    input {
         padding: 6px;
     }
 }
