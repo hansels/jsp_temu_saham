@@ -11,12 +11,12 @@
     <%@ page import="java.util.ArrayList" %>
     <% Integer [] Id = {1, 2, 3, 4, 5, 6}; %>
     <% int sizeList = Id.length; %>
-    <% String [] image = { "assets/traveloka_logo.jpg",
-                            "assets/tokopedia_logo.jpg",
-                            "assets/jenius_logo.png",
-                            "assets/dana_logo.jpg",
-                            "assets/haus_logo.png",
-                            "assets/hangry_logo.png"}; %>
+    <% String [] image = { "../assets/traveloka_logo.jpg",
+                            "../assets/tokopedia_logo.jpg",
+                            "../assets/jenius_logo.png",
+                            "../assets/dana_logo.jpg",
+                            "../assets/haus_logo.png",
+                            "../assets/hangry_logo.png"}; %>
     
     <% String [] name = {   "Traveloka",
                             "Tokopedia",
