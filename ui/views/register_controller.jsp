@@ -19,6 +19,6 @@
         //TODO Add dummy company to DB
         //And get company ID by last inserted company
         //TODO Add User to DB with company ID
-        response.sendRedirect("create_company..jsp");
+        //response.sendRedirect("create_company.jsp");
     }
 %>
