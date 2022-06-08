@@ -2,6 +2,7 @@
 <%@ include file="../../data/repositories/company_repository_impl.jsp" %>
 
 <%@ include file="../../domain/models/User.jsp" %>
+<%@ include file="../../domain/models/Company.jsp" %>
 
 <%
     String name = request.getParameter("name");
@@ -22,19 +23,21 @@
     User userFromDB = userRepository.getUserByEmail(email);
 
     if (userFromDB != null) {
-        response.sendRedirect("../login.jsp?error=User with this email already exists");
+        response.sendRedirect("../login.jsp?alert=User with this email already exists");
     } else {
         userRepository.addUser(user);
-        if(role.equals("investor")) {
-            response.sendRedirect("../login.jsp?success=User successfully registered");
-        } else {
 
-        //TODO Add dummy company to DB
-        //And get company ID by last inserted company
-        //TODO Add User to DB with company ID
-        //response.sendRedirect("create_company.jsp");
+        User insertedUser = userRepository.getUserByEmail(email);
+
+        if(role.equals("investor")) {
+            response.sendRedirect("../login.jsp?alert=User successfully registered!");
+        } else {
+            Company company = new Company();
+
+            company.userId = insertedUser.id;
+            companyRepository.addCompany(company);
+
+            response.sendRedirect("../create_company.jsp?alert=User successfully registered!");
         }
-        userRepository.addUser(user);
-        response.sendRedirect("../login.jsp");
-    }
+    }    
 %>

@@ -87,6 +87,8 @@
         </div>
     </div>
 
+    <br>
+
     <div>
         <center>
             <p>
@@ -98,9 +100,6 @@
     <br>
 
     <form action="checkout_payment.jsp" method="post" name="goToInvestForm">
-        
-        
-
         <input type="hidden" name="companyId" value="<%= companyId %>">
         
         <input type="submit" value="Invest" name="Invest">
