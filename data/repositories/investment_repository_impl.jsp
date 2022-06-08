@@ -80,7 +80,7 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
             }
         }
 
-        return investmentList;
+        return investmentList.size() != 0 ? investmentList : null;
     }
 }
 %>

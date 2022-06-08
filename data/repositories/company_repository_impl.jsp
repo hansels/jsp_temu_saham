@@ -94,7 +94,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
             }
         }
 
-        return company;
+        return company.id != null ? company : null;
     }
     
     @Override
@@ -184,7 +184,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
             }
         }
 
-        return companyList;
+        return companyList.size() != 0 ? companyList : null;
     }
     
     @Override
@@ -275,7 +275,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
             }
         }
 
-        return companyList;
+        return companyList.size() != 0 ? companyList : null;
     }
     
     @Override

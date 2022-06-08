@@ -29,7 +29,7 @@ class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
 
-        return user;
+        return user.id != null ? user : null;
     }
 
     @Override
@@ -64,7 +64,7 @@ class UserRepositoryImpl implements UserRepository {
             }
         }
 
-        return user;
+        return user.id != null ? user : null;;
     }
 
     @Override
@@ -131,7 +131,7 @@ class UserRepositoryImpl implements UserRepository {
             }
         }
 
-        return userTypeList;
+        return userTypeList.size() != 0 ? userTypeList : null;
     }
 }
 %>
