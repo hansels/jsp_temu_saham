@@ -13,8 +13,12 @@
   </head>
   <body>
   <%@ include file="navbars/navbar_home_not_login.jsp" %>
-
+  <%@ include file="data/sources/instances/temu_saham_db_Instance.jsp" %>
   
+  <%
+    TemuSahamDbInstance.initDatabase();
+  %>
+
   <div class="bg-image"></div>
 
   <div class="d-flex flex-column h-75 justify-content-center align-items-center bg-text">

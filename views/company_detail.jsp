@@ -87,14 +87,28 @@
         </div>
     </div>
 
+    <div>
+        <center>
+            <p>
+                Perusahaan ini menawarkan kepemilikan saham sebesar <b> <%= investment_stock[idx] %>% </b> untuk investasi sebesar <b>Rp. <%= investment_target[idx] %></b>
+            </p>
+        </center>
+    </div>
+
     <br>
 
     <form action="checkout_payment.jsp" method="post" name="goToInvestForm">
+        
+        
+
+        <input type="hidden" name="companyId" value="<%= companyId %>">
+        
         <input type="submit" value="Invest" name="Invest">
     </form>
 
     <br>
     <br>
     
+    <%@ include file="../footers/footer.jsp" %>
 </body>
 </html>

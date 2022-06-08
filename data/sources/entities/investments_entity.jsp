@@ -7,7 +7,7 @@ class InvestmentsEntity {
             "   user_id INT NOT NULL," +
             "   company_id INT NOT NULL," +
             "   percentage DOUBLE(6, 2) NOT NULL," +
-            "   created_at DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP)," +
+            "   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()," +
             "   amount INT NOT NULL," +
             "" +
             "   PRIMARY KEY (id)," +

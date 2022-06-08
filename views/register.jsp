@@ -26,7 +26,7 @@
           Register
         </h1>
         <form
-          action="register_controller.jsp"
+          action="controllers/register_controller.jsp"
           method="post"
           name="registerForm"
           onsubmit="return validateRegister()"
@@ -137,9 +137,6 @@
           return false;
         } else if (password != confirmPassword) {
           alert("Confirm password must be the same with password");
-          return false;
-        } else if ("//TODO email has been registered" == true) {
-          alert("Email is already being used");
           return false;
         } else {
           let confirmRegister = confirm(
