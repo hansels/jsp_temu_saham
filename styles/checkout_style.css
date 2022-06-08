@@ -1,5 +1,3 @@
-
-
 body{
     margin: 0px;
     padding: 0px;
@@ -10,7 +8,7 @@ section a{
     text-decoration: none;
 }
 
-.register{
+.checkout{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,25 +27,12 @@ label, input{
     padding: 5px;
 }
 
-.choose_gender {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    width: 250px;
-    font-weight: normal;
-}
-
-.personalID{
-    font-weight: normal;
-}
-
 input{
     background-color: #e4e6e3;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
     border-radius: 6px;
     border: none;
-    height: 20px;
+    height: 45px;
     size: 40px;
     width: 80%;
 }
@@ -55,7 +40,7 @@ input{
 input[type="submit"]{
     /* display: inline-block; */
     border-radius: 13px;
-    background-color: #ed9993;
+    background-color: #ee4e26;
     width: 90px;
     height: 43px;
     margin: 10px auto;
@@ -70,9 +55,24 @@ input[type="submit"]{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.register_form{
-    margin-left: 15%;
+button{
+    /* display: inline-block; */
+    border-radius: 13px;
+    background-color:  #ee4e26;
+    width: 90px;
+    height: 43px;
+    margin: 10px auto;
+    margin-top: 5px;
+    margin-left: 35%;
+    margin-bottom: 3%;
+    color: white;
+    padding: 3px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 
 .form_input{
     flex-direction: column;
@@ -80,23 +80,9 @@ input[type="submit"]{
     display: flex;
     align-items: flex-start;
     margin: 5px;
+    padding-bottom: 5px;
 }
 
-.personal-information{
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    align-items: flex-start;
-    margin: 5px;
-}
-
-.category_option {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    width: 250px;
-    font-weight: normal;
-}
 
 @media only screen and (max-width: 535px){
     input{

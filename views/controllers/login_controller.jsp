@@ -12,5 +12,5 @@
     session.setAttribute("userId", id);
     session.setMaxInactiveInterval(-1);
 
-    response.sendRedirect("home.jsp");
+    response.sendRedirect("../../home.jsp");
 %>
