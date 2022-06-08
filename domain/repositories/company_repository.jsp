@@ -8,5 +8,6 @@ interface CompanyRepository {
     public List<Company> getCompanyListByKeyword(String keyword);
     public boolean updateCompany(Company company);
     public boolean deleteCompany(int id);
+    public boolean createCompany(Company company);
 }
 %>
