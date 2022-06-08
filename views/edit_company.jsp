@@ -235,8 +235,8 @@
           alert("Enter a valid email");
           return false;
         } else {
-          let confirmCreateCompany = confirm("Are you sure you want to update the company with above data?");
-          if(confirmCreateCompany) {
+          let confirmEditCompany = confirm("Are you sure you want to update the company with above data?");
+          if(confirmEditCompany) {
             alert("Company updated successfully");
             return true;
           } else {
