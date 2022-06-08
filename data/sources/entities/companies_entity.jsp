@@ -7,6 +7,7 @@ class CompaniesEntity {
             "   name VARCHAR(1000)," +
             "   description VARCHAR(1000)," +
             "   location VARCHAR(1000)," +
+            "   investment_stock INT" +
             "   investment_target BIGINT(20)," +
             "   image TEXT," +
             "   email VARCHAR(1000)," +
