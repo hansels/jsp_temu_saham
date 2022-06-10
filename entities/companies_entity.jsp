@@ -7,6 +7,7 @@ class CompaniesEntity {
             "   name VARCHAR(1000)," +
             "   description VARCHAR(1000)," +
             "   location VARCHAR(1000)," +
+            "   investment_stock INT," +
             "   investment_target BIGINT(20)," +
             "   image TEXT," +
             "   email VARCHAR(1000)," +
@@ -17,8 +18,8 @@ class CompaniesEntity {
             "   is_completed CHAR(1) DEFAULT ('N')," +
             "" +
             "   PRIMARY KEY (id)," +
-            "   FOREIGN KEY (user_id) REFERENCES Users(Id)," +
-            "   FOREIGN KEY (category_id) REFERENCES Categories(Id)" +
+            "   FOREIGN KEY (user_id) REFERENCES Users(Id) ON DELETE CASCADE," +
+            "   FOREIGN KEY (category_id) REFERENCES Categories(Id) ON DELETE CASCADE" +
             ")";
 
     public static final String SQL_DROP = "DROP TABLE Companies";

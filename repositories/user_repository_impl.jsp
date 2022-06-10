@@ -1,6 +1,15 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 
+<%@ page import="java.sql.SQLException" %>
+
+<%@ page import="javax.sql.RowSet" %>
+<%@ page import="javax.sql.rowset.CachedRowSet" %>
+<%@ page import="javax.sql.rowset.RowSetProvider" %>
+
+<%@ include file="../models/User.jsp" %>
+<%@ include file="user_repository.jsp" %>
+
 <%!
 class UserRepositoryImpl implements UserRepository {
 
@@ -29,7 +38,7 @@ class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
 
-        return user;
+        return user.id != 0 ? user : null;
     }
 
     @Override
@@ -64,37 +73,32 @@ class UserRepositoryImpl implements UserRepository {
             }
         }
 
-        return user;
+        return user.id != 0 ? user : null;
     }
 
     @Override
     public boolean addUser(User user) {
-        System.out.println("AddUser is running.");
-        System.out.println("Preparing query.");
         String query = "" +
         "INSERT INTO Users (name, type, email, password) " +
-        "VALUES (?, ?, ?, ?)";
+        "SELECT ?, ?, ?, ? " +
+        "   FROM Users u " +
+        "  WHERE (SELECT COUNT(*) FROM Users WHERE email = u.email) = 0 ";
 
-        System.out.println("Preparing parameter.");
         Object[] parameters = new Object[] {
             user.name, user.type, user.email, user.password
         };
 
-        System.out.println("Calling executeQuery.");
         TemuSahamDbInstance.executeQuery(query, parameters);
-        System.out.println("Called executeQuery.");
-        System.out.println("Returning.");
         return true;
     }
 
     @Override
     public boolean updateUser(User user) {
         String query = "" +
-        "UPDATE u " +
-        "   SET name = ? " +
-        "     , email = ? " +
-        "     , password = ? " +
-        "  FROM Users u " +
+        "UPDATE Users u " +
+        "   SET name = IFNULL(?, name) " +
+        "     , email = IFNULL(?, email) " +
+        "     , password = IFNULL(?, password) " +
         " WHERE u.id = ?";
 
         Object[] parameters = new Object[] {
@@ -131,7 +135,7 @@ class UserRepositoryImpl implements UserRepository {
             }
         }
 
-        return userTypeList;
+        return userTypeList.size() != 0 ? userTypeList : null;
     }
 }
 %>

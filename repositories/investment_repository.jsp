@@ -1,8 +1,8 @@
-<%@ include file="../models/Investment.jsp" %>
+<%@ page import="java.util.List" %>
 
 <%!
 interface InvestmentRepository {
-    public boolean addInvestment(Invesment invesment);
+    public boolean addInvestment(Investment investment);
     public List<Investment> getInvestmentByUserId(int userId);
 }
 %>

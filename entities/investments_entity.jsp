@@ -11,8 +11,8 @@ class InvestmentsEntity {
             "   amount INT NOT NULL," +
             "" +
             "   PRIMARY KEY (id)," +
-            "   FOREIGN KEY (user_id) REFERENCES Users(Id)," +
-            "   FOREIGN KEY (company_id) REFERENCES Companies(Id)" +
+            "   FOREIGN KEY (user_id) REFERENCES Users(Id) ON DELETE CASCADE," +
+            "   FOREIGN KEY (company_id) REFERENCES Companies(Id) ON DELETE CASCADE" +
             ")";
 
     public static final String SQL_DROP = "DROP TABLE Investments";
