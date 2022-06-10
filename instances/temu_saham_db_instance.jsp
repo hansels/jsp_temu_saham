@@ -29,7 +29,6 @@ static class TemuSahamDbInstance {
             Class.forName(driver);
             
             if (connection == null) {
-                System.out.println("Database has been created.");
                 connection = DriverManager.getConnection(url + name, user, password);
                 connection.setAutoCommit(true);
             }
@@ -37,7 +36,6 @@ static class TemuSahamDbInstance {
             e.printStackTrace();
         } catch (SQLException e) {
             if (connection == null) {
-                System.out.println("Database has not been created.");
                 initDatabase();
             }
         }
@@ -45,58 +43,18 @@ static class TemuSahamDbInstance {
         return connection;
     }
 
-    /*
     public static RowSet executeQuery(String query, Object[] parameters) {
         CachedRowSet rowSet = null;
         connection = getConnection();
-
-        try {
-            System.out.println("Hello 1");
-            rowSet = RowSetProvider.newFactory().createCachedRowSet();
-            rowSet.setCommand(query);
-
-            System.out.println("Hello 2");
-            if (parameters != null) {
-                System.out.println("Hello 3");
-                for (int i = 0; i < parameters.length; i++) {
-                    rowSet.setObject(i + 1, parameters[i]);
-                }
-            }
-            System.out.println("Hello 4");
-            System.out.println(connection.isClosed() ? "A Connection is closed": "A Connection is not closed");
-            rowSet.execute(connection);
-            System.out.println(connection.isClosed() ? "A Connection is closed": "A Connection is not closed");
-            System.out.println("Hello 5");
-            rowSet.first();
-            System.out.println("Hello 6");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                    connection = null;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return rowSet;
-    }*/
-
-    public static RowSet executeQuery(String query, Object[] parameters) {
-        CachedRowSet rowSet = null;
-        connection = getConnection();
-        System.out.println(query.toUpperCase());
-        System.out.println(query.toUpperCase().indexOf("SELECT"));
+        // System.out.println(query.toUpperCase());
+        // System.out.println(query.toUpperCase().indexOf("SELECT"));
         try { 
             if(query.toUpperCase().indexOf("SELECT") != 0) {
-                System.out.println("Manipulation Query");
-                System.out.println(connection == null);
+                // System.out.println("Manipulation Query");
+                // System.out.println(connection == null);
                 
                 PreparedStatement statement = connection.prepareStatement(query);
-                System.out.println("Prepared the statement");
+                // System.out.println("Prepared the statement");
 
                 if (parameters != null) {
                     for (int i = 0; i < parameters.length; i++) {
@@ -104,44 +62,40 @@ static class TemuSahamDbInstance {
                     }
                 }
 
-                System.out.println("Parameters has been input.");
-                // int i = statement.executeUpdate();
-                // System.out.println(i + "row(s) affected.");
-                //connection.commit();
+                // System.out.println("Parameters has been input.");
                 statement.executeUpdate();
-                System.out.println("Statement executed.");
+                // System.out.println("Statement executed.");
 
                 statement.close();
                 statement = null;
-                System.out.println("Statement terminated.");
+                // System.out.println("Statement terminated.");
             } else { 
-                System.out.println("Retrieval Query");
+                // System.out.println("Retrieval Query");
                 rowSet = RowSetProvider.newFactory().createCachedRowSet();
                 rowSet.setCommand(query);
-
+                // System.out.println("Command prepared");
                 if (parameters != null) {
                     for (int i = 0; i < parameters.length; i++) {
                         rowSet.setObject(i + 1, parameters[i]);
                     }
                 }
-                // System.out.println(connection.isClosed() ? "1 Connection is closed": "1 Connection is not closed");
-                // System.out.println(connection.isClosed() ? "1 Connection is closed": "1 Connection is not closed");
-                // System.out.println(connection.getMetaData().getURL());
+                // System.out.println("Parameters set");
                 rowSet.execute(connection);
                 rowSet.first();
+                // System.out.println("Query executed.");
             }
             
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println("Im in.");
+            // System.out.println("Im in.");
             try {
                 if (connection != null) {
-                    System.out.println("Infiltrated.");
+                    // System.out.println("Infiltrated.");
                     connection.close();
                     connection = null;
-                    System.out.println("Terminated.");
-                    System.out.println(connection == null);
+                    // System.out.println("Terminated.");
+                    // System.out.println(connection == null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -168,8 +122,6 @@ static class TemuSahamDbInstance {
     public static void initDatabase() {
         try {
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println(connection.isClosed() ? "1 Connection is closed": "1 Connection is not closed");
-            System.out.println(connection.isClosed() ? "2 Connection is closed": "2 Connection is not closed");
             executeQuery("CREATE DATABASE IF NOT EXISTS " + name, null);
         } catch (SQLException e) {
             e.printStackTrace();

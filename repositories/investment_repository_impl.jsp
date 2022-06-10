@@ -1,13 +1,21 @@
-<%@ include file="../../domain/models/Investment.jsp" %>
-<%@ include file="../../domain/repositories/investment_repository.jsp" %>
-<%@ include file="../sources/instances/temu_saham_db_instance.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+
+<%@ page import="java.sql.SQLException" %>
+
+<%@ page import="javax.sql.RowSet" %>
+<%@ page import="javax.sql.rowset.CachedRowSet" %>
+<%@ page import="javax.sql.rowset.RowSetProvider" %>
+
+<%@ include file="../models/Investment.jsp" %>
+<%@ include file="investment_repository.jsp" %>
 
 <%!
 class InvestmentRepositoryImpl implements InvestmentRepository {
     
     @Override
     public boolean addInvestment(Investment investment) {
-        String query;
+        String query;   
 
         query = "" + 
         "INSERT INTO Investments (user_id, company_id, percentage, created_at, amount) " +
@@ -20,7 +28,7 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
             investment.companyId,
             investment.amount,
             investment.amount,
-            invsetment.companyId
+            investment.companyId
         };
         
         TemuSahamDbInstance.executeQuery(query, parameters);
@@ -29,7 +37,6 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
         query = "" +
         "UPDATE c " +
         "   SET c.isInvested = CASE WHEN i.id IS NOT NULL THEN 'Y' ELSE 'N' END " +
-        "     , c.isCompleted = CASE WHEN i.percentage >= 100 THEN 'Y' ELSE 'N' END " +
         "  FROM Companies c " +
         "       LEFT JOIN (SELECT id, SUM(percentage) AS percentage " +
         "                    FROM Investments " +
@@ -42,7 +49,7 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
         TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
     }
-
+    
     @Override
     public List<Investment> getInvestmentByUserId(int userId) {
         String query = "" +
