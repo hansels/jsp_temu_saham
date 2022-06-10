@@ -1,8 +1,7 @@
-<%@ include file="../../data/repositories/user_repository_impl.jsp" %>
-<%@ include file="../../data/repositories/company_repository_impl.jsp" %>
+<%@ include file="../repositories/user_repository_impl.jsp" %>
+<%@ include file="../repositories/company_repository_impl.jsp" %>
 
-<%@ include file="../../domain/models/User.jsp" %>
-<%@ include file="../../domain/models/Company.jsp" %>
+<%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
 <%
     String name = request.getParameter("name");
@@ -23,21 +22,19 @@
     User userFromDB = userRepository.getUserByEmail(email);
 
     if (userFromDB != null) {
-        response.sendRedirect("../login.jsp?alert=User with this email already exists");
+        response.sendRedirect("../views/login.jsp?alert=User with this email already exists");
     } else {
         userRepository.addUser(user);
 
-        User insertedUser = userRepository.getUserByEmail(email);
-
         if(role.equals("investor")) {
-            response.sendRedirect("../login.jsp?alert=User successfully registered!");
+            response.sendRedirect("../views/login.jsp?alert=User successfully registered!");
         } else {
             Company company = new Company();
 
-            company.userId = insertedUser.id;
-            companyRepository.addCompany(company);
+            company.owner = user;
+            companyRepository.createCompany(company);
 
-            response.sendRedirect("../create_company.jsp?alert=User successfully registered!");
+            response.sendRedirect("../views/create_company.jsp?alert=User successfully registered!");
         }
     }    
 %>

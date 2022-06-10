@@ -14,14 +14,27 @@
 <body>
     <%@ include file="../navbars/navbar_views_not_login.jsp" %>
 
+    <script>
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
     <%
         String alert = request.getParameter("alert");
         
-        if(alert != null || alert != "") {
+        if(alert != null && alert != "") {
             out.println("<div id='snackbar'>" + alert + "</div>");
+    %>
+        <script>
+            myFunction();
+        </script>
+    <%
         }
     %>
-    
+
      <section>
         <div class="login_page">
         <img src="../assets/logo.png" alt="Logo Tlp" class="logo_temusaham">
@@ -47,14 +60,6 @@
         </div>
 
     </section>
-
-    <script>
-        function myFunction() {
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
-    </script>
 
     <script>
         function validateLogin() {

@@ -26,7 +26,7 @@
           Register
         </h1>
         <form
-          action="controllers/register_controller.jsp"
+          action="../controllers/register_controller.jsp"
           method="post"
           name="registerForm"
           onsubmit="return validateRegister()"

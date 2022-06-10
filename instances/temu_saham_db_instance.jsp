@@ -20,7 +20,7 @@ static class TemuSahamDbInstance {
     protected static String url = "jdbc:mysql://localhost:3306/";
     public static String name = "TemuSahamDb";
     protected static String user = "root";
-    protected static String password = "";
+    protected static String password = "trendy";
     protected static Connection connection = null;
 
     public static Connection getConnection() {
