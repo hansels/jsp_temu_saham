@@ -38,7 +38,7 @@
      <section>
         <div class="login_page">
         <img src="../assets/logo.png" alt="Logo Tlp" class="logo_temusaham">
-            <form action="login_controller.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
+            <form action="../controllers/login_controller.jsp" method="post" name="loginForm" onsubmit="return validateLogin()">
                 <div class="login_input">
                     <div class="form_input">
                         <label for="email">Email Address</label>
@@ -66,17 +66,16 @@
             let email = document.forms["loginForm"]["email"].value;
             let password = document.forms["loginForm"]["password"].value;
 
+            let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
             if(email == "") {
                 alert("Email must not be empty");
                 return false;
+            }  else if(!emailRegex.test(email)) {
+                alert("Email must be valid");
+                return false;
             } else if(password == "") {
                 alert("Password must not be empty");
-                return false;
-            } else if("//TODO Get email, email not found" == true) {
-                alert("User not found, please register first");
-                return false;
-            } else if("//TODO Get password, not matched" == true) {
-                alert("Wrong password");
                 return false;
             } else {
                 alert("Logged in successfully");

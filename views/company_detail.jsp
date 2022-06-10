@@ -34,7 +34,25 @@
 
 <body>
     <%@ include file = "../database_tapi_boong.jsp" %>
-    <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+
+    <%
+    String id = (String) session.getAttribute("userId");
+    String type = (String) session.getAttribute("userType");
+
+        if (!id.isEmpty() && type.equals("investor")) {
+    %>
+      <%@ include file="../navbars/navbar_views_investor.jsp" %>
+    <%
+        } else if (!id.isEmpty() && type.equals("owner")) {
+    %>
+      <%@ include file="../navbars/navbar_views_owner.jsp" %>
+    <%
+        } else {
+    %>
+      <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+    <%
+        }
+    %>
 
     <h1 style="text-align: center; font-size: 40px; padding-top: 30px">
         Company Detail

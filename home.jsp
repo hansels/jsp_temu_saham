@@ -12,11 +12,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-  <%@ include file="navbars/navbar_home_not_login.jsp" %>
   <%@ include file="instances/temu_saham_db_instance.jsp" %>
 
   <%
     TemuSahamDbInstance.initDatabase();
+
+    String id = (String) session.getAttribute("userId");
+    String type = (String) session.getAttribute("userType");
+
+    if (!id.isEmpty() && type.equals("investor")) {
+  %>
+    <%@ include file="navbars/navbar_home_investor.jsp" %>
+  <%
+    } else if (!id.isEmpty() && type.equals("owner")) {
+  %>
+    <%@ include file="navbars/navbar_home_owner.jsp" %>
+  <%
+    } else {
+  %>
+    <%@ include file="navbars/navbar_home_not_login.jsp" %>
+  <%
+    }
   %>
 
   <div class="bg-image"></div>

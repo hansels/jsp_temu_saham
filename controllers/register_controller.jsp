@@ -34,7 +34,7 @@
             company.owner = user;
             companyRepository.createCompany(company);
 
-            response.sendRedirect("../views/create_company.jsp?alert=User successfully registered!");
+            response.sendRedirect("../views/create_company.jsp?email=" + email);
         }
     }    
 %>

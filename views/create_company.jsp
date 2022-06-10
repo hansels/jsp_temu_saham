@@ -20,9 +20,9 @@
   <body>
     <%@ include file="../navbars/navbar_views_not_login.jsp" %>
     <%
-      String userId = (String) session.getAttribute("userId");
-      //TODO getCompanyId
-      String companyId = "13"; // Change to get company id by user id or whatever
+      String email = request.getParameter("email");
+
+
     %>
     <section>
       <div class="create_edit_company">

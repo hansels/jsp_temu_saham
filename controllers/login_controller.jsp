@@ -1,32 +1,26 @@
-<%@ include file="../../data/repositories/user_repository_impl.jsp" %>
+<%@ include file="../repositories/user_repository_impl.jsp" %>
 
-<%@ include file="../../domain/models/User.jsp" %>
+<%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
 <%
     String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     UserRepository userRepository = new UserRepositoryImpl();
 
     User user = userRepository.getUserByEmail(email);
 
     if (user != null) {
-        String password = user.getPassword();
-        String passwordConfirmation = request.getParameter("passwordConfirmation");
-        if (password.equals(passwordConfirmation)) {
-            user.setPassword(password);
-            userRepository.updateUser(user);
-            response.sendRedirect("../../views/user/login.jsp");
+        if (password.equals(user.password)) {
+            session.setAttribute("userId", String.valueOf(user.id));
+            session.setAttribute("userType", user.type);
+            session.setMaxInactiveInterval(-1);
+
+            response.sendRedirect("../home.jsp");
         } else {
-            response.sendRedirect("../../views/user/password_reset.jsp?email=" + email);
+            response.sendRedirect("../views/login.jsp?alert=Login Failed!");
         }
     } else {
-        response.sendRedirect("../../views/user/password_reset.jsp?email=" + email);
+        response.sendRedirect("../views/login.jsp?alert=User Not Found, Please Register!");
     }
-
-
-
-    session.setAttribute("userId", user.id);
-    session.setMaxInactiveInterval(-1);
-
-    response.sendRedirect("../../home.jsp");
 %>
