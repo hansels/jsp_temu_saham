@@ -10,7 +10,6 @@
     <%@ page import="java.util.Arrays" %>
     <%@ page import="java.util.ArrayList" %>
     <% 
-    int sizeList = Id.length;
     
     Integer [] Id = {
         1,
@@ -20,6 +19,8 @@
         5,
         6
     };
+
+    int sizeList = Id.length;
     
     String [] category = {
         "Tech",
