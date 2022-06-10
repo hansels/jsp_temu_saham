@@ -80,14 +80,14 @@ class UserRepositoryImpl implements UserRepository {
     public boolean addUser(User user) {
         String query = "" +
         "INSERT INTO Users (name, type, email, password) " +
-        "SELECT ?, ?, ?, ? " +
-        "   FROM Users u " +
-        "  WHERE (SELECT COUNT(*) FROM Users WHERE email = u.email) = 0 ";
+        "VALUES (?, ?, ?, ?) ";
 
         Object[] parameters = new Object[] {
             user.name, user.type, user.email, user.password
         };
 
+        System.out.println(user.name);
+        System.out.println(user.email);
         TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
     }

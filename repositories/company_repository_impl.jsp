@@ -433,8 +433,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
         "INSERT INTO Companies (user_id, category_id, name, description, location, investment_stock, investment_target, image, email, phone, url, founded_year)" +
         "SELECT u.id, c.id, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? " +
         "  FROM Users u, Categories c " +
-        " WHERE u.email = ? AND c.name = ? " +
-        "   AND (SELECT COUNT(*) FROM Companies co WHERE co.user_id = u.id) = 0";
+        " WHERE u.email = ? AND c.name = ?";
 
         Object[] parameters = new Object[] {
             company.name,
