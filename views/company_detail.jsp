@@ -33,7 +33,11 @@
 </head>
 
 <body>
-    <%@ include file = "../database_tapi_boong.jsp" %>
+    <%@ include file="../models/User.jsp" %>
+
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
     <%
     String id = (String) session.getAttribute("userId");
@@ -62,44 +66,40 @@
 
     <%
         int companyId = Integer.parseInt(request.getParameter("companyId"));
-        int idx = 0;
-        for(int i = 0; i < sizeList; ++i){
-            if(Id[i].equals(companyId)){
-                idx = i;
-                break;
-            }
-        }
+
+        CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        Company company = companyRepository.getCompanyById(companyId);
     %>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <img src="<%= image[idx] %>" alt="Logo" style="width: 100%; height: auto;">
+                <img src="<%= company.image %>" alt="Logo" style="width: 100%; height: auto;">
             </div>
             <div class="col-md-8">
                 <h2>
-                    <%= name[idx] %> - <%= founded[idx] %> (<%= category[idx] %>)
+                    <%= company.name %> - <%= company.foundedYear %> (<%= company.categoryName %>)
                 </h2>
                 <h4>
-                    <%= location[idx] %>
+                    <%= company.location %>
                 </h4>
                 <p>
-                    <%= description[idx] %>
+                    <%= company.description %>
                 </p>
                 <h3>
                     Contact Us:
                 </h3>
                 <p>
                     <i class="fas fa-phone-square"></i>
-                    <%= phone[idx] %>
+                    <%= company.phone %>
                 </p>
                 <p>
                     <i class="fas fa-envelope"></i>
-                    <%= email[idx] %>
+                    <%= company.email %>
                 </p>
                 <p>
                     <i class="fas fa-link"></i>
-                    <%= url[idx] %>
+                    <%= company.url %>
                 </p>
             </div>
         </div>
@@ -110,14 +110,14 @@
     <div>
         <center>
             <p>
-                Perusahaan ini menawarkan kepemilikan saham sebesar <b> <%= investment_stock[idx] %>% </b> untuk investasi sebesar <b>Rp. <%= investment_target[idx] %></b>
+                Perusahaan ini menawarkan kepemilikan saham sebesar <b> <%= company.investmentStock %>% </b> untuk investasi sebesar <b>Rp. <%= company.investmentTarget %></b>
             </p>
         </center>
     </div>
 
     <br>
 
-    <form action="checkout_payment.jsp" method="post" name="goToInvestForm">
+    <form action="checkout_payment.jsp" method="POST" name="goToInvestForm">
         <input type="hidden" name="companyId" value="<%= companyId %>">
         
         <input type="submit" value="Invest" name="Invest">

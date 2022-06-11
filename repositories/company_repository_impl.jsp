@@ -70,25 +70,25 @@ class CompanyRepositoryImpl implements CompanyRepository {
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                company.id = rowSet.getInt("id");
-                user.name = rowSet.getString("ownerName");
-                user.email = rowSet.getString("ownerEmail");
+                company.id = rowSet.getInt(1);
+                user.name = rowSet.getString(2);
+                user.email = rowSet.getString(3);
                 company.owner = user;
-                company.name = rowSet.getString("name");
-                company.description = rowSet.getString("description");
-                company.location = rowSet.getString("location");
-                company.categoryName = rowSet.getString("categoryName");
-                company.investmentStock = rowSet.getInt("investmentStock");
-                company.investmentTarget = rowSet.getLong("investmentTarget");
-                company.investedAmount = rowSet.getLong("investedAmount");
-                company.fulfilledPercentage = rowSet.getFloat("fulfilledPercentage");
-                company.image = rowSet.getString("image");
-                company.email = rowSet.getString("email");
-                company.phone = rowSet.getString("phone");
-                company.url = rowSet.getString("url");
-                company.foundedYear = Integer.valueOf(rowSet.getString("foundedYear"));
-                company.isInvested = rowSet.getString("isInvested").charAt(0) == 'Y' ? true : false;
-                company.isCompleted = rowSet.getString("isCompleted").charAt(0) == 'Y' ? true : false;
+                company.name = rowSet.getString(4);
+                company.description = rowSet.getString(5);
+                company.location = rowSet.getString(6);
+                company.categoryName = rowSet.getString(7);
+                company.investmentStock = rowSet.getInt(8);
+                company.investmentTarget = rowSet.getLong(9);
+                company.investedAmount = rowSet.getLong(10);
+                company.fulfilledPercentage = rowSet.getFloat(11);
+                company.image = rowSet.getString(12);
+                company.email = rowSet.getString(13);
+                company.phone = rowSet.getString(14);
+                company.url = rowSet.getString(15);
+                company.foundedYear = Integer.valueOf(rowSet.getString(16));
+                company.isInvested = rowSet.getString(17).charAt(0) == 'Y' ? true : false;
+                company.isCompleted = rowSet.getString(18).charAt(0) == 'Y' ? true : false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -163,25 +163,25 @@ class CompanyRepositoryImpl implements CompanyRepository {
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                company.id = rowSet.getInt("id");
-                user.name = rowSet.getString("ownerName");
-                user.email = rowSet.getString("ownerEmail");
+                company.id = rowSet.getInt(1);
+                user.name = rowSet.getString(2);
+                user.email = rowSet.getString(3);
                 company.owner = user;
-                company.name = rowSet.getString("name");
-                company.description = rowSet.getString("description");
-                company.location = rowSet.getString("location");
-                company.categoryName = rowSet.getString("categoryName");
-                company.investmentStock = rowSet.getInt("investmentStock");
-                company.investmentTarget = rowSet.getLong("investmentTarget");
-                company.investedAmount = rowSet.getLong("investedAmount");
-                company.fulfilledPercentage = rowSet.getFloat("fulfilledPercentage");
-                company.image = rowSet.getString("image");
-                company.email = rowSet.getString("email");
-                company.phone = rowSet.getString("phone");
-                company.url = rowSet.getString("url");
-                company.foundedYear = Integer.valueOf(rowSet.getString("foundedYear"));
-                company.isInvested = rowSet.getString("isInvested").charAt(0) == 'Y' ? true : false;
-                company.isCompleted = rowSet.getString("isCompleted").charAt(0) == 'Y' ? true : false;
+                company.name = rowSet.getString(4);
+                company.description = rowSet.getString(5);
+                company.location = rowSet.getString(6);
+                company.categoryName = rowSet.getString(7);
+                company.investmentStock = rowSet.getInt(8);
+                company.investmentTarget = rowSet.getLong(9);
+                company.investedAmount = rowSet.getLong(10);
+                company.fulfilledPercentage = rowSet.getFloat(11);
+                company.image = rowSet.getString(12);
+                company.email = rowSet.getString(13);
+                company.phone = rowSet.getString(14);
+                company.url = rowSet.getString(15);
+                company.foundedYear = Integer.valueOf(rowSet.getString(16));
+                company.isInvested = rowSet.getString(17).charAt(0) == 'Y' ? true : false;
+                company.isCompleted = rowSet.getString(18).charAt(0) == 'Y' ? true : false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -251,30 +251,32 @@ class CompanyRepositoryImpl implements CompanyRepository {
         RowSet rowSet = TemuSahamDbInstance.executeQuery(query, parameters);
 
         List<Company> companyList = new ArrayList<>();
-        Company company = new Company();
-        User user = new User();
+
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                company.id = rowSet.getInt("id");
-                user.name = rowSet.getString("ownerName");
-                user.email = rowSet.getString("ownerEmail");
+                Company company = new Company();
+                User user = new User();
+
+                company.id = rowSet.getInt(1);
+                user.name = rowSet.getString(2);
+                user.email = rowSet.getString(3);
                 company.owner = user;
-                company.name = rowSet.getString("name");
-                company.description = rowSet.getString("description");
-                company.location = rowSet.getString("location");
-                company.categoryName = rowSet.getString("categoryName");
-                company.investmentStock = rowSet.getInt("investmentStock");
-                company.investmentTarget = rowSet.getLong("investmentTarget");
-                company.investedAmount = rowSet.getLong("investedAmount");
-                company.fulfilledPercentage = rowSet.getFloat("fulfilledPercentage");
-                company.image = rowSet.getString("image");
-                company.email = rowSet.getString("email");
-                company.phone = rowSet.getString("phone");
-                company.url = rowSet.getString("url");
-                company.foundedYear = Integer.valueOf(rowSet.getString("foundedYear"));
-                company.isInvested = rowSet.getString("isInvested").charAt(0) == 'Y' ? true : false;
-                company.isCompleted = rowSet.getString("isCompleted").charAt(0) == 'Y' ? true : false;
+                company.name = rowSet.getString(4);
+                company.description = rowSet.getString(5);
+                company.location = rowSet.getString(6);
+                company.categoryName = rowSet.getString(7);
+                company.investmentStock = rowSet.getInt(8);
+                company.investmentTarget = rowSet.getLong(9);
+                company.investedAmount = rowSet.getLong(10);
+                company.fulfilledPercentage = rowSet.getFloat(11);
+                company.image = rowSet.getString(12);
+                company.email = rowSet.getString(13);
+                company.phone = rowSet.getString(14);
+                company.url = rowSet.getString(15);
+                company.foundedYear = Integer.valueOf(rowSet.getString(16));
+                company.isInvested = rowSet.getString(17).charAt(0) == 'Y' ? true : false;
+                company.isCompleted = rowSet.getString(18).charAt(0) == 'Y' ? true : false;
 
                 companyList.add(company);
             }
@@ -346,30 +348,32 @@ class CompanyRepositoryImpl implements CompanyRepository {
         RowSet rowSet = TemuSahamDbInstance.executeQuery(query, parameters);
 
         List<Company> companyList = new ArrayList<>();
-        Company company = new Company();
-        User user = new User();
+
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                company.id = rowSet.getInt("id");
-                user.name = rowSet.getString("ownerName");
-                user.email = rowSet.getString("ownerEmail");
+                Company company = new Company();
+                User user = new User();
+                
+                company.id = rowSet.getInt(1);
+                user.name = rowSet.getString(2);
+                user.email = rowSet.getString(3);
                 company.owner = user;
-                company.name = rowSet.getString("name");
-                company.description = rowSet.getString("description");
-                company.location = rowSet.getString("location");
-                company.categoryName = rowSet.getString("categoryName");
-                company.investmentStock = rowSet.getInt("investmentStock");
-                company.investmentTarget = rowSet.getLong("investmentTarget");
-                company.investedAmount = rowSet.getLong("investedAmount");
-                company.fulfilledPercentage = rowSet.getFloat("fulfilledPercentage");
-                company.image = rowSet.getString("image");
-                company.email = rowSet.getString("email");
-                company.phone = rowSet.getString("phone");
-                company.url = rowSet.getString("url");
-                company.foundedYear = Integer.valueOf(rowSet.getString("foundedYear"));
-                company.isInvested = rowSet.getString("isInvested").charAt(0) == 'Y' ? true : false;
-                company.isCompleted = rowSet.getString("isCompleted").charAt(0) == 'Y' ? true : false;
+                company.name = rowSet.getString(4);
+                company.description = rowSet.getString(5);
+                company.location = rowSet.getString(6);
+                company.categoryName = rowSet.getString(7);
+                company.investmentStock = rowSet.getInt(8);
+                company.investmentTarget = rowSet.getLong(9);
+                company.investedAmount = rowSet.getLong(10);
+                company.fulfilledPercentage = rowSet.getFloat(11);
+                company.image = rowSet.getString(12);
+                company.email = rowSet.getString(13);
+                company.phone = rowSet.getString(14);
+                company.url = rowSet.getString(15);
+                company.foundedYear = Integer.valueOf(rowSet.getString(16));
+                company.isInvested = rowSet.getString(17).charAt(0) == 'Y' ? true : false;
+                company.isCompleted = rowSet.getString(18).charAt(0) == 'Y' ? true : false;
 
                 companyList.add(company);
             }
@@ -383,8 +387,8 @@ class CompanyRepositoryImpl implements CompanyRepository {
                 e.printStackTrace();
             }
         }
-        //System.out.println("Returning...");
-        //System.out.println(companyList.size());
+        // System.out.println("Returning...");
+        // System.out.println(companyList.size());
         return companyList.size() != 0 ? companyList : null;
     }
     

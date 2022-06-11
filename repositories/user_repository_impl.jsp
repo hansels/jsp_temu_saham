@@ -28,11 +28,11 @@ class UserRepositoryImpl implements UserRepository {
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                user.id = rowSet.getInt("id");
-                user.name = rowSet.getString("name");
-                user.type = rowSet.getString("type");
-                user.email = rowSet.getString("email");
-                user.password = rowSet.getString("password");
+                user.id = rowSet.getInt("1");
+                user.name = rowSet.getString("2");
+                user.type = rowSet.getString("3");
+                user.email = rowSet.getString("4");
+                user.password = rowSet.getString("5");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,11 +56,11 @@ class UserRepositoryImpl implements UserRepository {
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-                user.id = rowSet.getInt("id");
-                user.name = rowSet.getString("name");
-                user.type = rowSet.getString("type");
-                user.email = rowSet.getString("email");
-                user.password = rowSet.getString("password");
+                user.id = rowSet.getInt("1");
+                user.name = rowSet.getString("2");
+                user.type = rowSet.getString("3");
+                user.email = rowSet.getString("4");
+                user.password = rowSet.getString("5");
             }
         } catch (SQLException e) {
             e.printStackTrace();

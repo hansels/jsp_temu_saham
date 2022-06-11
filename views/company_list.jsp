@@ -12,7 +12,11 @@
 </head>
 
 <body>
-    <%@ include file = "../database_tapi_boong.jsp" %>
+    <%@ include file="../models/User.jsp" %>
+
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
     <%
     String id = (String) session.getAttribute("userId");
@@ -40,6 +44,9 @@
     <%
         String searchQuery = request.getParameter("searchBar");
         if(searchQuery == null) searchQuery = new String();
+        
+        CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        List<Company> companies = companyRepository.getCompanyListByKeyword(searchQuery);
     %>
 
     <br>
@@ -55,24 +62,15 @@
 
     <br>
 
-    <%
-        ArrayList<Integer> companyResult = new ArrayList<Integer>();
-        for(int i = 0; i < sizeList; ++i){
-            if(name[i].toLowerCase().contains(searchQuery.toLowerCase())){
-                companyResult.add(i);
-            }
-        }
-    %>
-
-    <% if(companyResult.isEmpty()){ %>
+    <% if(companies == null || companies.isEmpty()){ %>
         <h1 style="text-align: center; font-size: 30px; padding-top: 30px">
             No Result Found
         </h1>
     <% } else { %>
     <%
         int itemPerRow = 4;
-        int rowCount = companyResult.size() / itemPerRow;
-        int lastRowCount = companyResult.size() % itemPerRow;
+        int rowCount = companies.size() / itemPerRow;
+        int lastRowCount = companies.size() % itemPerRow;
         if (lastRowCount > 0) {
           rowCount++;
         }
@@ -87,15 +85,21 @@
         <div class="row" style="padding-left: 40px; padding-right: 40px;">
     <%
         for (int j = 0; j < itemPerRow; j++) {
-            Integer idx = companyResult.get(itemIndex);
+            Company company = companies.get(itemIndex);
     %>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="<%= image[idx] %>" class="card-img-top" alt="...">
+                    <img src="<%= company.image %>" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title"><%= name[idx] %> </h5>
-                      <p class="card-text"><%= shortDescription[idx] %></p>
-                      <a href="company_detail.jsp?companyId=<%= Id[idx] %>" class="btn btn-primary">See More</a>
+                      <h5 class="card-title"><%= company.name %> (<%= company.categoryName %>) </h5>
+                      <p class="card-text"><b><%= company.location %></b></p>
+                      <p class="card-text"><%= company.description %></p>
+                      <p class="card-text">Investment Progress: <b><%= company.fulfilledPercentage %>%</b></p>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow="<%= company.fulfilledPercentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <br> <br>
+                      <a href="company_detail.jsp?companyId=<%= company.id %>" class="btn btn-primary">See More</a>
                     </div>
                 </div>
             </div>
@@ -112,7 +116,6 @@
     
     <script>
         function validateSearch(){
-            // Entah mau di validasi atau gak, kan cuma search
             return true;
         }
     </script>
