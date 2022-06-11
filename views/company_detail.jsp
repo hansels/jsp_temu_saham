@@ -39,11 +39,11 @@
     String id = (String) session.getAttribute("userId");
     String type = (String) session.getAttribute("userType");
 
-        if (!id.isEmpty() && type.equals("investor")) {
+        if (id != null && type != null && !id.isEmpty() && type.equals("investor")) {
     %>
       <%@ include file="../navbars/navbar_views_investor.jsp" %>
     <%
-        } else if (!id.isEmpty() && type.equals("owner")) {
+        } else if (id != null && type != null && !id.isEmpty() && type.equals("owner")) {
     %>
       <%@ include file="../navbars/navbar_views_owner.jsp" %>
     <%
