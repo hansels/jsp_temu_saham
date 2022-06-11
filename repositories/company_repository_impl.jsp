@@ -391,6 +391,34 @@ class CompanyRepositoryImpl implements CompanyRepository {
         // System.out.println(companyList.size());
         return companyList.size() != 0 ? companyList : null;
     }
+
+        // NOT FINISHED
+
+        @Override
+        public boolean updateCompanyFull(Company company) {
+        String query = "" +
+        "UPDATE Companies c " +
+        "   SET c.description = IFNULL(?, description)" +
+        "     , c.image = IFNULL(?, image)" +
+        "     , c.email = IFNULL(?, email)" +
+        "     , c.phone = IFNULL(?, phone)" +
+        "     , c.url = IFNULL(?, url)" +
+        "     , c.is_completed = IFNULL(?, is_completed)" +
+        " WHERE c.id = ?";
+
+        Object[] parameters = new Object[] {
+            company.description,
+            company.image,
+            company.email,
+            company.phone,
+            company.url,
+            company.isCompleted ? "Y" : "N",
+            company.id
+        };
+        
+        TemuSahamDbInstance.executeQuery(query, parameters);
+        return true;
+    }
     
     @Override
     public boolean updateCompany(Company company) {
@@ -452,6 +480,26 @@ class CompanyRepositoryImpl implements CompanyRepository {
             company.foundedYear,
             company.owner.email,
             company.categoryName
+        };
+
+        TemuSahamDbInstance.executeQuery(query, parameters);
+        
+        Company result = getCompanyByUserEmail(company.owner.email);
+        //System.out.println("Hello");
+        
+        return result;
+    }
+
+    @Override
+    public Company createCompanyKosongan(Company company) {
+        String query = "" +
+        "INSERT INTO Companies (user_id)" +
+        "SELECT u.id" +
+        "  FROM Users u" +
+        " WHERE u.email = ?";
+
+        Object[] parameters = new Object[] {
+            company.owner.email,
         };
 
         TemuSahamDbInstance.executeQuery(query, parameters);

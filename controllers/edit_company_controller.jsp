@@ -1,3 +1,7 @@
+<%@ include file="../repositories/company_repository_impl.jsp" %>
+
+<%@ include file="../instances/temu_saham_db_instance.jsp" %>
+
 <%
     String userId = (String) session.getAttribute("userId");
     String companyId = request.getParameter("companyId");

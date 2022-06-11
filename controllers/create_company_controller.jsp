@@ -1,3 +1,7 @@
+<%@ include file="../repositories/company_repository_impl.jsp" %>
+
+<%@ include file="../instances/temu_saham_db_instance.jsp" %>
+
 <%
     String userId = (String) session.getAttribute("userId");
     String companyId = request.getParameter("companyId");
@@ -13,7 +17,20 @@
     Long foundedYear = Long.parseLong(request.getParameter("foundedYear"));
     String category = request.getParameter("category");
 
-    //TODO add to database, don't forget is_invested and is_completed set to false as default
+    // NOT FINISHED
+    Company company = new Company();
+
+    company.name = name;
+    company.description = description;
+    company.location = location;
+    company.investmentTarget = investmentTarget;
+    
+
+    company.isCompleted = true;
+
+    CompanyRepository companyRepository = new CompanyRepositoryImpl();
+
+
     response.sendRedirect("../../home.jsp");
     
 %>

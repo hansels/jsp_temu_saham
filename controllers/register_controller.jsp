@@ -32,7 +32,7 @@
             Company company = new Company();
 
             company.owner = user;
-            companyRepository.createCompany(company);
+            companyRepository.createCompanyKosongan(company);
 
             response.sendRedirect("../views/create_company.jsp?email=" + email);
         }

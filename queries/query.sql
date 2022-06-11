@@ -53,19 +53,19 @@ CREATE TABLE IF NOT EXISTS Investments (
 );
 
 INSERT INTO Users (name, type, email, password) VALUES 
-('Tommie Aitkin', 'Owner', 'taitkin0@homestead.com', 'jzDKrZUo'),
-('Doroteya Sturney', 'Owner', 'dsturney1@wikimedia.org', 'HXhew1CJ4Z'),
-('Patrice Von Welldun', 'Owner', 'pvon2@photobucket.com', 'HKnrQqQrCQ'),
-('Bernarr Diche', 'Owner', 'bdiche3@samsung.com', 'Dp81fydF'),
-('Udale Gribbell', 'Owner', 'ugribbell4@state.tx.us', '2ozevHSJ16'),
-('Helli Farrent', 'Owner', 'hfarrent2@deviantart.com', '85Qp4qwG'),
-('Hieronymus Sketh', 'Investor', 'hsketh5@ted.com', 'zxMLfW0uoSl'),
-('Ailene Harries', 'Investor', 'aharries6@whitehouse.gov', 'v8CrvUNE');
+('Tommie Aitkin', 'owner', 'taitkin0@homestead.com', 'jzDKrZUo'),
+('Doroteya Sturney', 'owner', 'dsturney1@wikimedia.org', 'HXhew1CJ4Z'),
+('Patrice Von Welldun', 'owner', 'pvon2@photobucket.com', 'HKnrQqQrCQ'),
+('Bernarr Diche', 'owner', 'bdiche3@samsung.com', 'Dp81fydF'),
+('Udale Gribbell', 'owner', 'ugribbell4@state.tx.us', '2ozevHSJ16'),
+('Helli Farrent', 'owner', 'hfarrent2@deviantart.com', '85Qp4qwG'),
+('Hieronymus Sketh', 'investor', 'hsketh5@ted.com', 'zxMLfW0uoSl'),
+('Ailene Harries', 'investor', 'aharries6@whitehouse.gov', 'v8CrvUNE');
 
 INSERT INTO Categories (name) VALUES 
-('Tech'),
+('Technology'),
 ('Banking'),
-('Food n Beverages');
+('Food and Beverages');
 
 INSERT INTO Companies (user_id, category_id, name, description, location, investment_stock, investment_target, image, email, phone, url, founded_year) VALUES 
 (1, 1, 'Traveloka', 'Traveloka merupakan startup yang memberikan layanan lengkap meliputi pemesanan tiket pesawat booking hotel secara daring dan layanan lainnya yang terkait perjalanan dan akomodasi. Startup ini didirikan pada tahun 2012 dan sudah beroperasi secara aktif di hampir semua wilayah di Indonesia.', 'Jakarta Indonesia', '10', '110000', '../assets/companies/traveloka.jpg', 'cs@traveloka.com', '+62 21-2910-3300', 'https://www.traveloka.com/', 2012),
