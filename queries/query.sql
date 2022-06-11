@@ -65,7 +65,7 @@ INSERT INTO Users (name, type, email, password) VALUES
 INSERT INTO Categories (name) VALUES 
 ('Technology'),
 ('Banking'),
-('Food and Beverages');
+('Food and Beverage');
 
 INSERT INTO Companies (user_id, category_id, name, description, location, investment_stock, investment_target, image, email, phone, url, founded_year) VALUES 
 (1, 1, 'Traveloka', 'Traveloka merupakan startup yang memberikan layanan lengkap meliputi pemesanan tiket pesawat booking hotel secara daring dan layanan lainnya yang terkait perjalanan dan akomodasi. Startup ini didirikan pada tahun 2012 dan sudah beroperasi secara aktif di hampir semua wilayah di Indonesia.', 'Jakarta Indonesia', '10', '110000', '../assets/companies/traveloka.jpg', 'cs@traveloka.com', '+62 21-2910-3300', 'https://www.traveloka.com/', 2012),

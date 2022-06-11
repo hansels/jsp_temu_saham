@@ -57,6 +57,24 @@ input[type="submit"] {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+    /* display: inline-block; */
+    border-radius: 13px;
+    background-color: #ee4e26;
+    width: 90px;
+    height: 43px;
+    margin: 10px auto;
+    margin-top: 5px;
+    margin-left: 35%;
+    margin-bottom: 3%;
+    color: white;
+    padding: 3px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 textarea {
     background-color: #e4e6e3;
     padding: 10px;

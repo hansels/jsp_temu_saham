@@ -21,21 +21,19 @@
     <%@ include file="../navbars/navbar_views_not_login.jsp" %>
     <%
       String email = request.getParameter("email");
-
-
     %>
+
     <section>
       <div class="create_edit_company">
         <h1 style="text-align: center; font-size: 40px; padding-top: 30px">
           Create Company
         </h1>
         <form
-          action="controllers/create_company_controller.jsp"
+          action="../controllers/create_company_controller.jsp?userEmail=<%= email %>"
           method="post"
           name="createCompanyForm"
           onsubmit="return validateCreateCompany()"
         >
-          <%-- <input type="hidden" name="companyId" value="<%= companyId %>"> --%>
           <div class="form_input">
             <label for="name">Company Name</label>
             <input type="text" name="name" placeholder="Input your company name..." />
@@ -95,7 +93,7 @@
                   type="radio"
                   name="category"
                   id="technology"
-                  value="technology"
+                  value="Technology"
                 />
                 <label class="form-check-label" for="technology">
                   Technology
@@ -107,7 +105,7 @@
                   type="radio"
                   name="category"
                   id="banking"
-                  value="banking"
+                  value="Banking"
                 />
                 <label class="form-check-label" for="banking">
                   Banking
@@ -119,7 +117,7 @@
                   type="radio"
                   name="category"
                   id="foodAndBeverage"
-                  value="foodAndBeverage"
+                  value="Food And Beverage"
                 />
                 <label class="form-check-label" for="foodAndBeverage">
                   Food and Beverage

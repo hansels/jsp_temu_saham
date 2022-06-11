@@ -20,41 +20,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-    <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+    <%@ include file="../repositories/user_repository_impl.jsp" %>
+
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
+
     <%
-      String userId = (String) session.getAttribute("userId");
-      //TODO getCompanyId
-      String companyId = "13"; // Change to get company id by user id or whatever
+    String id = (String) session.getAttribute("userId");
+    String type = (String) session.getAttribute("userType");
 
-      //Company company = getCompanyById;
-      //String name = company.name;
-      //String description = company.description;
-      //String location = company.location;
-      //Long investmentTarget = company.investmentTarget;
-      //Long investmentStock = company.investmentStock;
-      //String logo = company.logo;
-      //String email = company.email;
-      //String phone = company.phone;
-      //String url = company.url;
-      //Long foundedYear = company.foundedYear;
-      //String category = company.category;
+        if (id != null && type != null && !id.isEmpty() && type.equals("investor")) {
+    %>
+      <%@ include file="../navbars/navbar_views_investor.jsp" %>
+    <%
+        } else if (id != null && type != null && !id.isEmpty() && type.equals("owner")) {
+    %>
+      <%@ include file="../navbars/navbar_views_owner.jsp" %>
+    <%
+        } else {
+    %>
+      <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+    <%
+        }
+    %>
 
-      //Delete this when the above code is uncommentted
-      String name = "name";
-      String description = "description";
-      String location = "locationnnnnnn";
-      Long investmentTarget = Long.valueOf(100000000);
-      Long investmentStock = Long.valueOf(40);
-      String logo = "logo";
-      String email = "albert.heru@binus.ac.id";
-      String phone = "phone number";
-      String url = "";
-      Long foundedYear = Long.valueOf(2022);
-      String category = "foodAndBeverage";
-
+    <%
       NumberFormat formatPrice = NumberFormat.getInstance();
 
-      String[] categoryList = {"technology", "banking", "foodAndBeverage"};
+      UserRepository userRepository = new UserRepositoryImpl();
+      CompanyRepository companyRepository = new CompanyRepositoryImpl();
+
+      User user = userRepository.getUserById(Integer. parseInt(id));
+      Company company = companyRepository.getCompanyByUserEmail(user.email);
+  
       String[] categoryOutputList = {"Technology", "Banking", "Food and Beverage"};
     %>
     <section>
@@ -63,62 +61,60 @@
           Edit Company
         </h1>
         <form
-          action="controllers/edit_company_controller.jsp"
-          method="post"
+          action="../controllers/edit_company_controller.jsp?userEmail=<%= user.email %>"
+          method="POST"
           name="createCompanyForm"
           onsubmit="return validateCreateCompany()"
         >
-          <input type="hidden" name="companyId" value="<%= companyId %>">
+          <%-- <input type="hidden" name="companyId" value="<%= companyId %>"> --%>
           <div class="form_input">
             <label for="name">Company Name</label>
-            <input type="text" name="name" value="<%= name %>" readonly/>
+            <input type="text" name="name" value="<%= company.name %>" readonly/>
           </div>
 
           <div class="form_input">
             <label for="description">Company Description</label>
-            <textarea name="description" id="" cols="30" rows="10">
-              <%= description %>
-            </textarea>
+            <textarea name="description" id="description" cols="30" rows="10"><%= company.description %></textarea>
           </div>
 
           <div class="form_input">
             <label for="location">Company Location</label>
-            <input type="text" name="location" value="<%= location %>" readonly/>
+            <input type="text" name="location" value="<%= company.location %>" readonly/>
           </div>
 
           <div class="form_input">
             <label for="investmentTarget">Investment Target (in IDR)</label>
-            <input type="text" name="investmentTarget" value="<%= formatPrice.format(investmentTarget) %>" readonly/>
+            <input type="text" name="investmentTarget" value="<%= formatPrice.format(company.investmentTarget) %>" readonly/>
           </div>
 
           <div class="form_input">
             <label for="investmentStock">Investment Stock (in percent)</label>
-            <input type="text" name="investmentStock" value="<%= investmentStock %>" readonly/>
+            <input type="text" name="investmentStock" value="<%= company.investmentStock %>" readonly/>
           </div>
 
           <div class="form_input">
             <label for="logo">Company Logo</label>
-            <input type="text" name="logo" value="<%= logo %>" />
+            <input type="text" name="logo" value="<%= company.image %>" readonly />
           </div>
 
           <div class="form_input">
             <label for="email">Company Email</label>
-            <input type="text" name="email" value="<%= email %>" />
+            <input type="text" name="email" value="<%= company.email %>" />
           </div>
 
           <div class="form_input">
             <label for="phone">Company Phone Number</label>
-            <input type="text" name="phone" value="<%= phone %>" />
+            <input type="text" name="phone" value="<%= company.phone %>" />
           </div>
 
           <div class="form_input">
             <label for="url">Company Website URL (if any)</label>
-            <input type="text" name="url" placeholder="Input your company website URL..." value="<%= url %>" />
+            <input type="text" name="url" placeholder="Input your company website URL..." value="<%= company.url %>" />
           </div>
 
           <div class="form_input">
             <label for="foundedYear">Company Founded Year</label>
-            <input type="text" name="foundedYear" value="<%= foundedYear %>" readonly/>
+            <input type="text" name="foundedYear" value="<%= company.foundedYear %>" readonly/>
           </div>
 
           <div class="form_input">
@@ -126,18 +122,18 @@
             <div class="personal-information">
               <%
                 for(int i = 0 ; i < 3 ; i++) {
-                  if(category.equals(categoryList[i])) {
+                  if(company.categoryName.equals(categoryOutputList[i])) {
                     %>
                     <div class="form-check">
                       <input
                         class="form-check-input"
                         type="radio"
                         name="category"
-                        value="<%= categoryList[i] %>"
+                        value="<%= categoryOutputList[i] %>"
                         disabled
                         checked
                       />
-                      <label class="form-check-label" for="<%= categoryList[i] %>">
+                      <label class="form-check-label" for="<%= categoryOutputList[i] %>">
                         <%= categoryOutputList[i] %>
                       </label>
                     </div>
@@ -149,10 +145,10 @@
                         class="form-check-input"
                         type="radio"
                         name="category"
-                        value="<%= categoryList[i] %>"
+                        value="<%= categoryOutputList[i] %>"
                         disabled
                       />
-                      <label class="form-check-label" for="<%= categoryList[i] %>">
+                      <label class="form-check-label" for="<%= categoryOutputList[i] %>">
                         <%= categoryOutputList[i] %>
                       </label>
                     </div>
@@ -160,11 +156,8 @@
                   }
                 }
               %>
-              
             </div>
           </div>
-
-          <button type='button' onclick='window.history.back();'>Cancel</button>
           <input type="submit" id="submit" value="Update" />
         </form>
       </div>
