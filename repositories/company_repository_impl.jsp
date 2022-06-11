@@ -435,20 +435,16 @@ class CompanyRepositoryImpl implements CompanyRepository {
         String query = "" +
         "UPDATE Companies c " +
         "   SET c.description = IFNULL(?, description)" +
-        "     , c.image = IFNULL(?, image)" +
         "     , c.email = IFNULL(?, email)" +
         "     , c.phone = IFNULL(?, phone)" +
         "     , c.url = IFNULL(?, url)" +
-        "     , c.is_completed = IFNULL(?, is_completed)" +
         " WHERE c.id = ?";
 
         Object[] parameters = new Object[] {
             company.description,
-            company.image,
             company.email,
             company.phone,
             company.url,
-            company.isCompleted ? "Y" : "N",
             company.id
         };
         
