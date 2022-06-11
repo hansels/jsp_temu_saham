@@ -18,6 +18,6 @@
     String category = request.getParameter("category");
 
     //TODO Update company to database
-    response.sendRedirect("../../home.jsp");
+    response.sendRedirect("../home.jsp");
     
 %>

@@ -392,28 +392,38 @@ class CompanyRepositoryImpl implements CompanyRepository {
         return companyList.size() != 0 ? companyList : null;
     }
 
-        // NOT FINISHED
-
         @Override
-        public boolean updateCompanyFull(Company company) {
+        public boolean updateCompanyFullByUserId(Company company) {
         String query = "" +
         "UPDATE Companies c " +
-        "   SET c.description = IFNULL(?, description)" +
+        "   SET c.category_id = ? " +
+        "     , c.name = ? " +
+        "     , c.description = IFNULL(?, description)" +
+        "     , c.location = IFNULL(?, location)" +
+        "     , c.investment_stock = IFNULL(?, investment_stock)" +
+        "     , c.investment_target = IFNULL(?, investment_target)" +
         "     , c.image = IFNULL(?, image)" +
         "     , c.email = IFNULL(?, email)" +
         "     , c.phone = IFNULL(?, phone)" +
         "     , c.url = IFNULL(?, url)" +
+        "     , c.founded_year = IFNULL(?, founded_year)" +
         "     , c.is_completed = IFNULL(?, is_completed)" +
-        " WHERE c.id = ?";
+        " WHERE c.user_id = ?";
 
         Object[] parameters = new Object[] {
+            company.categoryId,
+            company.name,
             company.description,
+            company.location,
+            company.investmentStock,
+            company.investmentTarget,
             company.image,
             company.email,
             company.phone,
             company.url,
+            company.foundedYear,
             company.isCompleted ? "Y" : "N",
-            company.id
+            company.owner.id
         };
         
         TemuSahamDbInstance.executeQuery(query, parameters);
