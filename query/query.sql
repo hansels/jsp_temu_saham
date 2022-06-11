@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS Companies (
    phone VARCHAR(1000),
    url VARCHAR(1000),
    founded_year CHAR(4),
-   is_invested CHAR(1),
-   is_completed CHAR(1),
+   is_invested CHAR(1) DEFAULT ('N'),
+   is_completed CHAR(1) DEFAULT ('N'),
 
    PRIMARY KEY (id),
    FOREIGN KEY (user_id) REFERENCES Users(id),
