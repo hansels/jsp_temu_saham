@@ -66,7 +66,7 @@
     %>
 
     <% if(investmentList.isEmpty()){ %>
-        <div class="wrapper">
+        <div style="text-align: center;">
             <h4>You haven't make any investment yet, <a href="company_list.jsp">invest now</a></h4>
         </div>
     <% } else { %>
