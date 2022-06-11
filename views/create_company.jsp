@@ -35,7 +35,7 @@
           name="createCompanyForm"
           onsubmit="return validateCreateCompany()"
         >
-          <input type="hidden" name="companyId" value="<%= companyId %>">
+          <%-- <input type="hidden" name="companyId" value="<%= companyId %>"> --%>
           <div class="form_input">
             <label for="name">Company Name</label>
             <input type="text" name="name" placeholder="Input your company name..." />

@@ -67,12 +67,12 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
-               investment.id = rowSet.getInt("1");
-               investment.userId = rowSet.getInt("2");
-               investment.companyId = rowSet.getInt("3");
-               investment.percentage = rowSet.getFloat("4");
-               investment.createdAt = rowSet.getTimestamp("5");
-               investment.amount = rowSet.getLong("6");
+               investment.id = rowSet.getInt(1);
+               investment.userId = rowSet.getInt(2);
+               investment.companyId = rowSet.getInt(3);
+               investment.percentage = rowSet.getFloat(4);
+               investment.createdAt = rowSet.getTimestamp(5);
+               investment.amount = rowSet.getLong(6);
 
                investmentList.add(investment);
             }
