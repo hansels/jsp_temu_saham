@@ -14,14 +14,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <%
-        String companyId = request.getParameter("companyId");
-        companyId = "13"; //TODO DELETE WHEN INTEGRATING
-        //TODO get company by id
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+    <%@ include file="../repositories/user_repository_impl.jsp" %>
 
-        //Company company = getCompanyById(companyId);
-        String companyName = "Tokopedia";
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
+
+    <%
         NumberFormat formatPrice = NumberFormat.getInstance();
+
+        String companyId = request.getParameter("companyId");
+
+        CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        Company company = companyRepository.getCompanyById(Integer.parseInt(companyId));
     %>
     <section>
         <div class="checkout">
@@ -30,26 +34,22 @@
                 <input type="hidden" name="companyId" value="<%= companyId %>">
                 <div class="form_input">
                     <label for="name">Company Name</label>
-                    <input type="text" name="companyName" value="[company name placeholder]" readonly> 
-                    <%-- <input type="text" name="companyName" value="<%= company.name %>" readonly>  --%>
+                    <input type="text" name="companyName" value="<%= company.name %>" readonly> 
                 </div>
 
                 <div class="form_input">
                     <label for="target">Investment Target (in IDR)</label>
-                    <input type="text" name="investmentTarget" value="<%= formatPrice.format(100000000) %>" readonly> 
-                    <%-- <input type="text" name="investmentTarget" value="<%= company.investmentTarget %>" readonly>  --%>
+                    <input type="text" name="investmentTarget" value="<%= formatPrice.format(company.investmentTarget) %>" readonly> 
                 </div>
 
                 <div class="form_input">
                     <label for="remaining">Remaining Investment Needed (in IDR)</label>
-                    <input type="text" name="remainingInvestmentNeeded" value="<%= formatPrice.format(90000000) %>" readonly> 
-                    <%-- <input type="text" name="remainingInvestmentNeeded" value="<%= company.getRemainingInvestmentNeeded() %>" readonly>  --%>
+                    <input type="text" name="remainingInvestmentNeeded" value="<%= formatPrice.format(company.investmentTarget - company.investedAmount) %>" readonly> 
                 </div>
 
                 <div class="form_input">
-                    <label for="stock">Investment Stock for Full Investment Target (in percent)</label>
-                    <input type="text" name="investmentStock" value="<%= 30 %>" readonly> 
-                    <%-- <input type="text" name="investmentStock" value="<%= company.investmentStock %>" readonly> --%>
+                    <label for="stock">Investment Stock for Full Investment Target (in percentage)</label>
+                    <input type="text" name="investmentStock" value="<%= company.investmentStock %>" readonly> 
                 </div>
 
                 <div class="form_input">
@@ -57,12 +57,11 @@
                     <%
                         if(request.getParameter("investmentNominal") != null) {
                             %>
-                            <input type="number" name="investmentNominal" value="<%= request.getParameter("investmentNominal") %>" min="10000" step="10000" max="90000000">
+                            <input type="number" name="investmentNominal" value="<%= request.getParameter("investmentNominal") %>" min="10000" step="10000" max="<%= company.investmentTarget - company.investedAmount %>">
                         <%
                         } else {
                             %>
-                            <input type="number" name="investmentNominal" placeholder="Your investment... (multiple of 10000)" min="10000" step="10000" max="90000000">
-                            <%-- <input type="number" name="investmentNominal" placeholder="Your investment... (multiple of 10000)" min="10000" step="10000" max="<%= company.getRemainingInvestmentNeeded %>"> --%>
+                            <input type="number" name="investmentNominal" placeholder="Your investment... (multiple of 10000)" min="10000" step="10000" max="<%= company.investmentTarget - company.investedAmount %>">
                         <%
                         }
                     %>
