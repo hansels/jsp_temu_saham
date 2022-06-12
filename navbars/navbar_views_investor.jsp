@@ -13,7 +13,7 @@
                 <a class="nav-item nav-link" href="company_list.jsp" style="font-size:20px;"><i class="fa-solid fa-building padding-righter"></i>Companies</a>
                 <a class="nav-item nav-link" href="portofolio.jsp" style="font-size:20px;"><i class="fa fa-list padding-righter"></i>Portofolio</a>
                 <a class="nav-item nav-link" href="contact.jsp" style="font-size:20px;"><i class="fa fa-address-book padding-righter"></i>Contact</a>
-                <a class="nav-item nav-link" href="user_profile.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Profile</a>
+                <a class="nav-item nav-link" href="profile.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Profile</a>
             </ul>
         </div>
     </div>
