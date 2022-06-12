@@ -1,5 +1,5 @@
 <%
     String id = request.getParameter("id");
     session.invalidate();
-    response.sendRedirect("../home.jsp);
+    response.sendRedirect("../home.jsp");
 %>

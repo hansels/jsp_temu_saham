@@ -16,13 +16,15 @@
         body {
             min-height: 100vh;
         }
+
+        #user-password:focus {
+            border: 0;
+        }
     </style>
 </head>
 <body>
-    <%@ include file="../repositories/company_repository.jsp" %>
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
     <%@ include file="../repositories/company_repository_impl.jsp" %>
-
-    <%@ include file="../repositories/user_repository.jsp" %>
     <%@ include file="../repositories/user_repository_impl.jsp" %>
 
     <%
@@ -31,11 +33,20 @@
     UserRepository userRepository = new UserRepositoryImpl();
     CompanyRepository companyRepository = new CompanyRepositoryImpl();
 
-    User user = userRepository.getUserById(id);
+    int userId = Integer.parseInt(id);
+    User user = userRepository.getUserById(userId);
     Company company = companyRepository.getCompanyByUserEmail(user.email);
-
+    
+    int passwordLength = user.password.length();
+    
     String investedAmountString = "Rp0.00";
     String investmentTargetString = "Rp0.00";
+    StringBuilder passwordBuilder = new StringBuilder(passwordLength);
+    for(int i = 0; i < passwordLength; ++i) {
+        passwordBuilder.append("*");
+    }
+
+    String password = passwordBuilder.toString();
 
     if(company != null) {
         investedAmountString = "Rp" + String.format("%,.2f", company.investedAmount);
@@ -49,19 +60,19 @@
         <form action="edit_company.jsp" method="post" class="border rounded p-3 mb-5">
 
             <div class="container" style="min-height: fit-content; margin-bottom: 12px;">
-                <h3>User</h3>
+                <h3><center>User</center></h3>
                 <table>
                     <tr class="form-group">
                         <td style="width: 40%;"><b>Name</b></td>
-                        <td><input type="text" class="form-control-plaintext" name="user-name" id="user-name" value="<%= user.name %>" readonly></td>
+                        <td class="form-control-plaintext"><%= user.name %></td>
                     </tr>
                     <tr class="form-group">
                         <td style="width: 40%;"><b>Email</b></td>
-                        <td><input type="email" class="form-control-plaintext" name="user-email" id="user-email" value="<%= user.email %>" readonly></td>
+                        <td class="form-control-plaintext"><%= user.email %></td>
                     </tr>
                     <tr class="form-group">
                         <td style="width: 40%; padding-right: 20px;"><b>Password</b></td>
-                        <td><input type="password" class="form-control-plaintext" name="user-password" id="user-password" value="<%= user.password %>" readonly></td>
+                        <td><input class="form-control-plaintext" type="password" name="user-password" id="user-passowrd" value="<%= password %>"></td>
                     </tr>
                     
                 </table>
@@ -69,10 +80,10 @@
                 <a href="change_password.jsp" style="text-decoration: none;">Change Password</a>
             </div>
 
-            <% if(user.type != "owner") { %>
+            <% if(company != null) { %>
             <div class="container mt-5" id="company-profile">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>Company</h3>
+                    <h3><center>Company</center></h3>
 
                     <% if(company.investedAmount == 0) { %>
                     <button type="button" id="btn-delete-company" class="btn btn-danger">Delete</button>
@@ -102,7 +113,7 @@
                     </div>
                     <div class="col-sm">
                         <p class="m-0"><b>Fulfilled Stocks</b></p>
-                        <p style="font-size: 20px;"><%= investmentStock %>%</p>
+                        <p style="font-size: 20px;"><%= company.investmentStock %>%</p>
                         <%-- <p style="font-size: 20px;" id="Purchased Stock">28%</p><p style="font-size: 20px;">/</p><p class="align-self-end" style="font-size: 12px;" id="investment-target"></p> --%>
                     </div>
                 </div>
@@ -130,10 +141,12 @@
                 </div>
             </div>
             <% } %>
-            <div class="d-flex justify-content-between mt-4 align-items-center" style="margin: 0px 12px;">
+            <div class="d-flex <%= company != null ? "justify-content-between" : "justify-content-start" %> mt-4 align-items-center" style="margin: 0px 12px;">
                 <a href="../controllers/logout_controller.jsp?id=<%= id %>" class="text-danger" style="text-decoration: none;">Log Out</a>
 
+                <% if(company != null) { %>
                 <button type="submit" class="btn btn-primary">Update Company</button>
+                <% } %>
             </div>
         </form>
     </div>
