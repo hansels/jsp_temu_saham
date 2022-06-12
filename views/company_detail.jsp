@@ -1,3 +1,5 @@
+<%@ page import = "java.text.NumberFormat" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +42,8 @@
     <%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
     <%
+    NumberFormat formatPrice = NumberFormat.getInstance();
+
     String id = (String) session.getAttribute("userId");
     String type = (String) session.getAttribute("userType");
 
@@ -99,7 +103,7 @@
                 </p>
                 <p>
                     <i class="fas fa-link"></i>
-                    <%= company.url %>
+                    <a href="<%= company.url %>"> <%= company.url %> </a>
                 </p>
             </div>
         </div>
@@ -110,18 +114,29 @@
     <div>
         <center>
             <p>
-                Perusahaan ini menawarkan kepemilikan saham sebesar <b> <%= company.investmentStock %>% </b> untuk investasi sebesar <b>Rp. <%= company.investmentTarget %></b>
+                This company is offering a <b> <%= company.investmentStock %>% </b> stake for an investment of <b>Rp. <%= formatPrice.format(company.investmentTarget) %></b>
             </p>
         </center>
     </div>
 
     <br>
-
-    <form action="checkout_payment.jsp" method="POST" name="goToInvestForm">
-        <input type="hidden" name="companyId" value="<%= companyId %>">
-        
-        <input type="submit" value="Invest" name="Invest">
-    </form>
+    <%
+    if(id == null || id.isEmpty()) {
+    %>
+        <form action="login.jsp?alert=Login First to Invest!" method="POST" name="goToLogin">
+            <input type="submit" value="Invest" name="Invest">
+        </form>
+    <%        
+    } else {
+    %>
+        <form action="checkout_payment.jsp" method="POST" name="goToInvestForm">
+            <input type="hidden" name="companyId" value="<%= companyId %>">
+            
+            <input type="submit" value="Invest" name="Invest">
+        </form>
+    <%        
+    }
+    %>
 
     <br>
     <br>

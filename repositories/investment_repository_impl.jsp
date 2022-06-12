@@ -1,6 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.ParseException" %>
+
 <%@ page import="java.sql.SQLException" %>
 
 <%@ page import="javax.sql.RowSet" %>
@@ -19,34 +22,17 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
 
         query = "" + 
         "INSERT INTO Investments (user_id, company_id, percentage, created_at, amount) " +
-        "SELECT ?, ?, ? * 100.0/investment_target, ? " +
-        "  FROM Companies " +
-        " WHERE id = ?";
+        "VALUES (?, ?, ?, NOW(), ?)";
 
         Object[] parameters = new Object[] {
             investment.userId,
             investment.companyId,
-            investment.amount,
-            investment.amount,
-            investment.companyId
+            investment.percentage,
+            investment.amount
         };
         
         TemuSahamDbInstance.executeQuery(query, parameters);
 
-
-        query = "" +
-        "UPDATE c " +
-        "   SET c.isInvested = CASE WHEN i.id IS NOT NULL THEN 'Y' ELSE 'N' END " +
-        "  FROM Companies c " +
-        "       LEFT JOIN (SELECT id, SUM(percentage) AS percentage " +
-        "                    FROM Investments " +
-        "                   GROUP BY id) i " +
-        "       ON   i.company_id = c.id " +
-        " WHERE c.id = ?";
-
-        parameters = new Object[] { investment.companyId };
-
-        TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
     }
     
@@ -54,7 +40,7 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
     public List<Investment> getInvestmentByUserId(int userId) {
         String query = "" +
         "SELECT i.id, i.user_id AS userId, i.company_id AS companyId, i.percentage, i.created_at AS createdAt, i.amount" +
-        "  FROM Investment i" +
+        "  FROM Investments i" +
         " WHERE i.user_id = ?" +
         "";
 
@@ -71,8 +57,15 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
                investment.userId = rowSet.getInt(2);
                investment.companyId = rowSet.getInt(3);
                investment.percentage = rowSet.getFloat(4);
-               investment.createdAt = rowSet.getTimestamp(5);
                investment.amount = rowSet.getLong(6);
+            
+               System.out.println(rowSet.getString(5));
+               SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+               try {
+                   investment.createdAt = df.parse(rowSet.getString(5) + "+0700");
+               } catch (ParseException e) {
+                   e.printStackTrace();
+               }
 
                investmentList.add(investment);
             }

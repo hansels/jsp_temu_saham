@@ -8,6 +8,7 @@ interface CompanyRepository {
     public List<Company> getCompanyListByKeyword(String keyword);
     public boolean updateCompanyFullByUserId(Company company);
     public boolean updateCompany(Company company);
+    public boolean updateIsInvested(int companyId, boolean isInvested);
     public boolean deleteCompany(int id);
     public Company createCompany(Company company);
     public Company createCompanyKosongan(Company company);

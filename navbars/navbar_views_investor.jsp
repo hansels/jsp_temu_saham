@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8693b2; min-height: 100px;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home.jsp">
+        <a class="navbar-brand" href="../home.jsp">
             <img src="../assets/logo.png" width="60" height="60" class="d-inline-block align-top" alt="">
             <span class="ml-2" style="font-size: 42px;">
               TemuSaham
@@ -13,7 +13,7 @@
                 <a class="nav-item nav-link" href="company_list.jsp" style="font-size:20px;"><i class="fa-solid fa-building padding-righter"></i>Companies</a>
                 <a class="nav-item nav-link" href="portofolio.jsp" style="font-size:20px;"><i class="fa fa-list padding-righter"></i>Portofolio</a>
                 <a class="nav-item nav-link" href="contact.jsp" style="font-size:20px;"><i class="fa fa-address-book padding-righter"></i>Contact</a>
-                <a class="nav-item nav-link" href="user_profile.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Profile</a>
+                <a class="nav-item nav-link" href="profile.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Profile</a>
             </ul>
         </div>
     </div>
