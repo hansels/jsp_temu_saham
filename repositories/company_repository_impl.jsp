@@ -392,8 +392,8 @@ class CompanyRepositoryImpl implements CompanyRepository {
         return companyList.size() != 0 ? companyList : null;
     }
 
-        @Override
-        public boolean updateCompanyFullByUserId(Company company) {
+    @Override
+    public boolean updateCompanyFullByUserId(Company company) {
         String query = "" +
         "UPDATE Companies c " +
         "   SET c.category_id = ? " +
@@ -424,6 +424,22 @@ class CompanyRepositoryImpl implements CompanyRepository {
             company.foundedYear,
             company.isCompleted ? "Y" : "N",
             company.owner.id
+        };
+        
+        TemuSahamDbInstance.executeQuery(query, parameters);
+        return true;
+    }
+
+    @Override
+    public boolean updateIsInvested(int companyId, boolean isInvested) {
+        String query = "" +
+        "UPDATE Companies c " +
+        "   SET c.is_invested = ?" +
+        " WHERE c.id = ?";
+
+        Object[] parameters = new Object[] {
+            isInvested ? "Y" : "N",
+            companyId
         };
         
         TemuSahamDbInstance.executeQuery(query, parameters);

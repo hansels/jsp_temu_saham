@@ -20,6 +20,25 @@
     <%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
     <%
+    String id = (String) session.getAttribute("userId");
+    String type = (String) session.getAttribute("userType");
+
+        if (id != null && type != null && !id.isEmpty() && type.equals("investor")) {
+    %>
+      <%@ include file="../navbars/navbar_views_investor.jsp" %>
+    <%
+        } else if (id != null && type != null && !id.isEmpty() && type.equals("owner")) {
+    %>
+      <%@ include file="../navbars/navbar_views_owner.jsp" %>
+    <%
+        } else {
+    %>
+      <%@ include file="../navbars/navbar_views_not_login.jsp" %>
+    <%
+        }
+    %>
+
+    <%
         NumberFormat formatPrice = NumberFormat.getInstance();
 
         String companyId = request.getParameter("companyId");

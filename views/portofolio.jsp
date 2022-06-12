@@ -12,7 +12,14 @@
 </head>
 
 <body>
-    <%@ include file = "../database_tapi_boong.jsp" %>
+    <%@ include file="../models/User.jsp" %>
+
+    <%@ include file="../repositories/investment_repository_impl.jsp" %>
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
+
+    <%@ page import="java.text.SimpleDateFormat" %>
 
     <%
     String id = (String) session.getAttribute("userId");
@@ -41,35 +48,27 @@
 
     <%
         String userIdString = (String) session.getAttribute("userId");
-        int userId = -1;
-        if(userIdString != null && !userIdString.isEmpty()){
-            userId = Integer.parseInt(userIdString);
-        }
+        int userId = Integer.parseInt(userIdString);
+
+        CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        InvestmentRepository investmentRepository = new InvestmentRepositoryImpl();
+
+        List<Investment> investments = investmentRepository.getInvestmentByUserId(userId);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd, hh:mm:ss");  
     %>
 
-    <%
-        // Some more dummy data since I don't want to make another dummy database :v
-        Integer [] investmentUserId = {1, 2, 1, 1, 2};
-        Integer [] investmentCompanyId = {3, 1, 4, 1, 5};
-        Double [] investmentPercentage = {2.75,3.69,3.01,1.44,5.12,7.33};
-        Integer [] investmentAmount = {1000, 2000, 1500, 700, 3000, 5000};
-        String [] investmentDate = {"01/06/2022", "02/06/2022", "03/06/2022", "04/06/2022", "05/06/2022", "06/06/2022"};
-        int investmentSize = investmentUserId.length;
-        long totalInvestment = 0;
-        ArrayList<Integer> investmentList = new ArrayList<Integer>();
-        for(int i = 0; i<investmentSize; ++i){
-            if(investmentUserId[i].equals(userId)){
-                investmentList.add(i);
-                totalInvestment+= investmentAmount[i];
-            }
-        }
-    %>
-
-    <% if(investmentList.isEmpty()){ %>
+    <% if(investments == null || investments.isEmpty()){ %>
         <div style="text-align: center;">
             <h4>You haven't make any investment yet, <a href="company_list.jsp">invest now</a></h4>
         </div>
     <% } else { %>
+    <%
+        int totalInvestment = 0;
+        for (Investment investment : investments) {
+            totalInvestment += investment.amount;
+        }
+    %>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -83,29 +82,24 @@
                                 </h6>
                                 <p class="card-text">
                                     <%
-                                        for(int i = 0; i<investmentList.size(); ++i) {
-                                            int index = investmentList.get(i);
-                                            String companyName = name[index];
-                                            String date = investmentDate[index];
-                                            int amount = investmentAmount[index];
-                                            double percentage = investmentPercentage[index];
-                                            String percentageString = percentage + "%";
-                                            String amountString = "Rp. " + amount;
+                                        for(Investment investment : investments) {
+                                            Company company = companyRepository.getCompanyById(investment.companyId);
+                                            String strDate = dateFormat.format(investment.createdAt);
                                     %>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <b>
-                                                <%= companyName %>
+                                                <%= company.name %>
                                             </b>
                                         </div>
                                         <div class="col-md-3">
-                                            <%= date %>
+                                            <%= strDate %>
                                         </div>
                                         <div class="col-md-3">
-                                            <%= percentageString %>
+                                            <%= investment.percentage %>
                                         </div>
                                         <div class="col-md-3">
-                                            <%= amountString %>
+                                            <%= investment.amount %>
                                         </div>
                                     </div>
                                     <%

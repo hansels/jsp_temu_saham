@@ -103,7 +103,7 @@
                 </p>
                 <p>
                     <i class="fas fa-link"></i>
-                    <%= company.url %>
+                    <a href="<%= company.url %>"> <%= company.url %> </a>
                 </p>
             </div>
         </div>
@@ -120,12 +120,23 @@
     </div>
 
     <br>
-
-    <form action="checkout_payment.jsp" method="POST" name="goToInvestForm">
-        <input type="hidden" name="companyId" value="<%= companyId %>">
-        
-        <input type="submit" value="Invest" name="Invest">
-    </form>
+    <%
+    if(id == null || id.isEmpty()) {
+    %>
+        <form action="login.jsp?alert=Login First to Invest!" method="POST" name="goToLogin">
+            <input type="submit" value="Invest" name="Invest">
+        </form>
+    <%        
+    } else {
+    %>
+        <form action="checkout_payment.jsp" method="POST" name="goToInvestForm">
+            <input type="hidden" name="companyId" value="<%= companyId %>">
+            
+            <input type="submit" value="Invest" name="Invest">
+        </form>
+    <%        
+    }
+    %>
 
     <br>
     <br>
