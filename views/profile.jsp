@@ -37,7 +37,7 @@
     String investedAmountString = "Rp0.00";
     String investmentTargetString = "Rp0.00";
 
-    if(company.investmentTarget != 0) {
+    if(company != null) {
         investedAmountString = "Rp" + String.format("%,.2f", company.investedAmount);
         investmentTargetString = "Rp" + String.format("%,.2f", company.investmentTarget);
     }
@@ -73,7 +73,7 @@
             <div class="container mt-5" id="company-profile">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>Company</h3>
-                    <%-- <input type="button" class="btn btn-danger" value="Delete"> --%>
+
                     <% if(company.investedAmount == 0) { %>
                     <button type="button" id="btn-delete-company" class="btn btn-danger">Delete</button>
                     <% } %>
@@ -102,7 +102,6 @@
                     </div>
                     <div class="col-sm">
                         <p class="m-0"><b>Fulfilled Stocks</b></p>
-                        <%-- <p style="font-size: 20px;">25%/<span style="font-size: 12px;">100%</span></p> --%>
                         <p style="font-size: 20px;"><%= investmentStock %>%</p>
                         <%-- <p style="font-size: 20px;" id="Purchased Stock">28%</p><p style="font-size: 20px;">/</p><p class="align-self-end" style="font-size: 12px;" id="investment-target"></p> --%>
                     </div>
@@ -138,19 +137,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        var btnDelete = document.getElementById("btn-delete-company");
-        var investedAmount = document.getElementById("invested-amount").value;
-        var investmentTarget = document.getElementById("investment-target").value;
-
-        if(investmentAmount == investmentTarget) {
-            btnDelete.style.display = "none";
-        }
-
-        btnDelete.addEventListener("click", () => {
-            alert("Are you sure?");
-        })
-    </script>
 </body>
 </html>
