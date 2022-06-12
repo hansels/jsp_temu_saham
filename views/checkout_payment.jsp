@@ -69,11 +69,17 @@
 
                 <br>
 
+                <input type='button' value="Cancel">
                 <input type="submit" id="next" value="Next">
             </form>
         </div>
     </section>
     <script>
+        const cancelButton = document.querySelector('input[type="button"]');
+        cancelButton.addEventListener('click', function() {
+            window.location.href = "../views/company_detail.jsp?companyId=" + <%= companyId %>;
+        });
+
         function validateCheckoutPayment() {
             let investmentNominal = document.forms["checkoutPaymentForm"]["investmentNominal"].value;
 

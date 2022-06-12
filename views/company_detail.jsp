@@ -1,3 +1,5 @@
+<%@ page import = "java.text.NumberFormat" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +42,8 @@
     <%@ include file="../instances/temu_saham_db_instance.jsp" %>
 
     <%
+    NumberFormat formatPrice = NumberFormat.getInstance();
+
     String id = (String) session.getAttribute("userId");
     String type = (String) session.getAttribute("userType");
 
@@ -110,7 +114,7 @@
     <div>
         <center>
             <p>
-                Perusahaan ini menawarkan kepemilikan saham sebesar <b> <%= company.investmentStock %>% </b> untuk investasi sebesar <b>Rp. <%= company.investmentTarget %></b>
+                This company is offering a <b> <%= company.investmentStock %>% </b> stake for an investment of <b>Rp. <%= formatPrice.format(company.investmentTarget) %></b>
             </p>
         </center>
     </div>

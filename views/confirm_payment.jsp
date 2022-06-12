@@ -65,12 +65,18 @@
                     <input type="text" name="stockReceived" value="<%= stockReceived %>" readonly> 
                 </div>
 
-                <button type='button' onclick='window.history.back();'>Cancel</button>
+                <br>   
+                <input type='button' value="Cancel">
                 <input type="submit" id="pay" value="Pay">
             </form>
         </div>
     </section>
-    <script>
+    <script>        
+        const cancelButton = document.querySelector('input[type="button"]');
+        cancelButton.addEventListener('click', function() {
+            window.location.href = "../views/checkout_payment.jsp?companyId=" + <%= companyId %>;
+        });
+
         function validateConfirmPayment() {
             let confirmPayment = confirm("Are you sure you want to invest?");
             if(confirmPayment) {

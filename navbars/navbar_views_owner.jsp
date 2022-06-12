@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8693b2; min-height: 100px;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home.jsp">
+        <a class="navbar-brand" href="../home.jsp">
             <img src="../assets/logo.png" width="60" height="60" class="d-inline-block align-top" alt="">
             <span class="ml-2" style="font-size: 42px;">
               TemuSaham
