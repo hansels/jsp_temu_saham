@@ -16,41 +16,63 @@
         body {
             min-height: 100vh;
         }
+
+        #user-password:focus {
+            border: 0;
+        }
     </style>
 </head>
 <body>
+    <%@ include file="../instances/temu_saham_db_instance.jsp" %>
+    <%@ include file="../repositories/company_repository_impl.jsp" %>
+    <%@ include file="../repositories/user_repository_impl.jsp" %>
+
     <%
-    //double investedAmount = request.getParameter("investedAmount");
-    //double investmentTarget = request.getParameter("investmentTarget");
+    String id = (String) session.getAttribute("userId");
 
-    //String investedAmountString = "Rp0.00";
-    //String investmentTargetString = "Rp0.00";
+    UserRepository userRepository = new UserRepositoryImpl();
+    CompanyRepository companyRepository = new CompanyRepositoryImpl();
 
-    //if(investmentTarget != 0) {
-    //    String investedAmountString = "Rp" + String.format("%,.2f", investedAmount);
-    //    String investmentTargetString = "Rp" + String.format("%,.2f", investmentTarget);
-    //}
+    int userId = Integer.parseInt(id);
+    User user = userRepository.getUserById(userId);
+    Company company = companyRepository.getCompanyByUserEmail(user.email);
+    
+    int passwordLength = user.password.length();
+    
+    String investedAmountString = "Rp0.00";
+    String investmentTargetString = "Rp0.00";
+    StringBuilder passwordBuilder = new StringBuilder(passwordLength);
+    for(int i = 0; i < passwordLength; ++i) {
+        passwordBuilder.append("*");
+    }
+
+    String password = passwordBuilder.toString();
+
+    if(company != null) {
+        investedAmountString = "Rp" + String.format("%,.2f", company.investedAmount);
+        investmentTargetString = "Rp" + String.format("%,.2f", company.investmentTarget);
+    }
     %>
 
     <div class="container w-100 h-100 d-flex flex-column justify-content-center align-items-center">
         <h1 class="my-4">Profile</h1>
 
-        <form action="../controllers/edit_company_controller.jsp" method="post" class="border rounded p-3 mb-5">
+        <form action="edit_company.jsp" method="post" class="border rounded p-3 mb-5">
 
             <div class="container" style="min-height: fit-content; margin-bottom: 12px;">
-                <h3>User</h3>
+                <h3><center>User</center></h3>
                 <table>
                     <tr class="form-group">
                         <td style="width: 40%;"><b>Name</b></td>
-                        <td><input type="text" class="form-control-plaintext" name="user-name" id="user-name" value="John Doe" readonly></td>
+                        <td class="form-control-plaintext"><%= user.name %></td>
                     </tr>
                     <tr class="form-group">
                         <td style="width: 40%;"><b>Email</b></td>
-                        <td><input type="email" class="form-control-plaintext" name="user-email" id="user-email" value="johndoe@gmail.com" readonly></td>
+                        <td class="form-control-plaintext"><%= user.email %></td>
                     </tr>
                     <tr class="form-group">
                         <td style="width: 40%; padding-right: 20px;"><b>Password</b></td>
-                        <td><input type="password" class="form-control-plaintext" name="user-password" id="user-password" value="johndoe" readonly></td>
+                        <td><input class="form-control-plaintext" type="password" name="user-password" id="user-passowrd" value="<%= password %>"></td>
                     </tr>
                     
                 </table>
@@ -58,14 +80,14 @@
                 <a href="change_password.jsp" style="text-decoration: none;">Change Password</a>
             </div>
 
-            <%-- <% if(investmentTarget != 0) { %> --%>
+            <% if(company != null) { %>
             <div class="container mt-5" id="company-profile">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>Company</h3>
-                    <%-- <input type="button" class="btn btn-danger" value="Delete"> --%>
-                    <%-- <% if(investedAmount == 0) { %> --%>
+                    <h3><center>Company</center></h3>
+
+                    <% if(company.investedAmount == 0) { %>
                     <button type="button" id="btn-delete-company" class="btn btn-danger">Delete</button>
-                    <%-- <% } %> --%>
+                    <% } %>
                 </div>
 
                 <div class="row">
@@ -73,11 +95,11 @@
                         <img src="../assets/partner1.png" alt="" style="height: 200px; width: 200px;">
                     
                         <div class="container" style="margin-left: 12px;">
-                            <h3 class="mb-0">Company A (2014)</h3>
-                            <p>Food and Beverages</p>
+                            <h3 class="mb-0"><%= company.name %> (<%= company.foundedYear %>)</h3>
+                            <p><%= company.categoryName %></p>
                             <br>
                             <p class="m-0"><b>Location</b></p>
-                            <p>Jl. Pencakar Langit no. 21, Jakarta Barat, Duri Kepa, Indonesia, 11920</p>
+                            <p><%= company.location %></p>
                         </div>
                     </div>
                 </div>
@@ -86,59 +108,47 @@
                     <div class="col-sm">
                         <p class="m-0"><b>Accumulated Investments</b></p>
                         <div class="d-flex justify-content-start align-items-center">
-                            <p style="font-size: 20px;" id="invested-amount">Rp18,000,000.00</p><p style="font-size: 20px;">/</p><p class="align-self-end" style="font-size: 12px;" id="investment-target">Rp70,000,000.00</p>
+                            <p style="font-size: 20px;" id="invested-amount"><%= investedAmountString %></p><p style="font-size: 20px;">/</p><p class="align-self-center" style="font-size: 12px;" id="investment-target"><%= investmentTargetString %></p>
                         </div>
                     </div>
                     <div class="col-sm">
-                        <p class="m-0"><b>Available Stocks</b></p>
-                        <p style="font-size: 20px;">5/<span style="font-size: 12px;">25</span></p>
+                        <p class="m-0"><b>Fulfilled Stocks</b></p>
+                        <p style="font-size: 20px;"><%= company.investmentStock %>%</p>
+                        <%-- <p style="font-size: 20px;" id="Purchased Stock">28%</p><p style="font-size: 20px;">/</p><p class="align-self-end" style="font-size: 12px;" id="investment-target"></p> --%>
                     </div>
                 </div>
 
                 <div class="row"><b>Description</b></div>
                 <div class="row form-group mt-2" style="margin: 0px;">
-                    <textarea class="form-control" style="resize: none;" name="description" id="company_description" cols="30" rows="10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</textarea>
+                    <%-- <textarea class="form-control-plaintext" style="resize: none;" name="description" id="company_description" cols ="30" rows="10" readonly>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</textarea> --%>
+                    <p class="form-control-plaintext" style="resize: none;" id="company_description" readonly><%= company.description %></p>
                 </div>
 
                 <div class="row mt-4 mb-2"><b>Contacts</b></div>
                 <div class="row">
                     <div class="form-group mb-2">
                         <label style="font-size: 14px;" for="email"><b>Email</b></label><br>
-                        <input class="form-control" type="text" name="email" value="companyA@mail.com">
+                        <input class="form-control-plaintext" type="text" name="email" value="<%= company.email %>" readonly>
                     </div>
                     <div class="form-group mb-2">
                         <label style="font-size: 14px;" for="phone"><b>Phone</b></label><br>
-                        <input class="form-control" type="text" name="phone" value="087182654925">
+                        <input class="form-control-plaintext" type="text" name="phone" value="<%= company.phone %>" readonly>
                     </div>
                     <div class="form-group">
                         <label style="font-size: 14px;" for="url"><b>Url</b></label><br>
-                        <input class="form-control" type="text" name="url" value="www.companyA.comm">
+                        <input class="form-control-plaintext" type="text" name="url" value="<%= company.url %>" readonly>
                     </div>
                 </div>
             </div>
-            <%-- <% } %> --%>
-            <div class="d-flex justify-content-between mt-4 align-items-center">
-                <a href="#" class="text-danger" style="text-decoration: none;">Log Out</a>
+            <% } %>
+            <div class="d-flex <%= company != null ? "justify-content-between" : "justify-content-start" %> mt-4 align-items-center" style="margin: 0px 12px;">
+                <a href="../controllers/logout_controller.jsp?id=<%= id %>" class="text-danger" style="text-decoration: none;">Log Out</a>
 
-                <%-- <% if(investmentTarget != 0) { %> --%>
+                <% if(company != null) { %>
                 <button type="submit" class="btn btn-primary">Update Company</button>
-                <%-- <% } %> --%>
+                <% } %>
             </div>
         </form>
     </div>
-
-    <script>
-        var btnDelete = document.getElementById("btn-delete-company");
-        var investedAmount = document.getElementById("invested-amount").value;
-        var investmentTarget = document.getElementById("investment-target").value;
-
-        if(investmentAmount == investmentTarget) {
-            btnDelete.style.display = "none";
-        }
-
-        btnDelete.addEventListener("click", () => {
-            alert("Are you sure?");
-        })
-    </script>
 </body>
 </html>
