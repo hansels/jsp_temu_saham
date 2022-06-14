@@ -534,15 +534,6 @@ class CompanyRepositoryImpl implements CompanyRepository {
         };
 
         TemuSahamDbInstance.executeQuery(query, parameters);
-        
-        query = "" +
-        "UPDATE Users " +
-        "   SET type = ? " +
-        " WHERE user_id = ? ";
-
-        parameters = new Object[] { "owner", userId };
-
-        TemuSahamDbInstance.executeQuery(query, parameters);
 
         Company result = getCompanyByUserEmail(company.owner.email);
         //System.out.println("Hello");
