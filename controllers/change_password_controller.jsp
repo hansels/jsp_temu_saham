@@ -16,5 +16,5 @@
         }
     }
 
-    response.sendRedirect("change_password.jsp");
+    response.sendRedirect("../home.jsp");
 %>
