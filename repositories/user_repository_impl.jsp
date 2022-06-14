@@ -98,11 +98,12 @@ class UserRepositoryImpl implements UserRepository {
         "UPDATE Users u " +
         "   SET name = IFNULL(?, name) " +
         "     , email = IFNULL(?, email) " +
+        "     , type  = IFNULL(?, type) " +
         "     , password = IFNULL(?, password) " +
         " WHERE u.id = ?";
 
         Object[] parameters = new Object[] {
-            user.name, user.email, user.password, user.id
+            user.name, user.email, user.type, user.password, user.id
         };
 
         TemuSahamDbInstance.executeQuery(query, parameters);
