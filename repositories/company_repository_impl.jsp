@@ -475,7 +475,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
         " WHERE user_id = ? " +
         "   AND is_invested = 'N'";
 
-        Object[] parameters = new Object[] { id, userId };
+        Object[] parameters = new Object[] { userId };
 
         TemuSahamDbInstance.executeQuery(query, parameters);
 
