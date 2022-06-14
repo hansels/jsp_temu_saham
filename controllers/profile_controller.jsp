@@ -9,4 +9,6 @@
     
     CompanyRepository companyRepository = new CompanyRepositoryImpl();
     companyRepository.deleteCompany(userId);
+
+    response.sendRedirect("../home.jsp");
 %>
