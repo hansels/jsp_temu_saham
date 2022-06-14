@@ -1,3 +1,5 @@
+<%@ page import = "java.text.NumberFormat" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +49,8 @@
     <br>
 
     <%
+        NumberFormat formatPrice = NumberFormat.getInstance();
+
         String userIdString = (String) session.getAttribute("userId");
         int userId = Integer.parseInt(userIdString);
 
@@ -75,7 +79,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    Total Investasi Anda : Rp. <%= totalInvestment %>
+                                    Total Investasi Anda : Rp. <%= formatPrice.format(totalInvestment) %>
                                 </h5>
                                 <h6 class="card-subtitle mb-2 text-muted">
                                     Total investasi anda dalam perusahaan-perusahaan yang anda miliki.
@@ -96,10 +100,10 @@
                                             <%= strDate %>
                                         </div>
                                         <div class="col-md-3">
-                                            <%= investment.percentage %>
+                                            <%= investment.percentage %>%
                                         </div>
                                         <div class="col-md-3">
-                                            <%= investment.amount %>
+                                            Rp.<%= formatPrice.format(investment.amount) %>
                                         </div>
                                     </div>
                                     <%

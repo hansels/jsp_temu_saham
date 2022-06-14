@@ -96,7 +96,7 @@
                       <p class="card-text"><%= company.description %></p>
                       <p class="card-text">Investment Progress: <b><%= company.fulfilledPercentage %>%</b></p>
                       <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" aria-valuenow="<%= company.fulfilledPercentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= company.fulfilledPercentage %>%"  aria-valuenow="<%= company.fulfilledPercentage %>" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
                       <br> <br>
                       <a href="company_detail.jsp?companyId=<%= company.id %>" class="btn btn-primary">See More</a>

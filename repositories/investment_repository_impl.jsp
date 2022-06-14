@@ -49,10 +49,11 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
         RowSet rowSet = TemuSahamDbInstance.executeQuery(query, parameters);
 
         List<Investment> investmentList = new ArrayList<>();
-        Investment investment = new Investment();
         try {
             rowSet.beforeFirst();
             while(rowSet.next()) {
+               Investment investment = new Investment();
+               
                investment.id = rowSet.getInt(1);
                investment.userId = rowSet.getInt(2);
                investment.companyId = rowSet.getInt(3);
