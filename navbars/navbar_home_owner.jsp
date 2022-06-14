@@ -11,6 +11,7 @@
             <ul class="ms-auto navbar-nav">
                 <a class="nav-item nav-link" href="home.jsp" style="font-size:20px;"><i class="fa fa-home padding-righter"></i>Home</a>
                 <a class="nav-item nav-link" href="views/company_list.jsp" style="font-size:20px;"><i class="fa-solid fa-building padding-righter"></i>Companies</a>
+                <a class="nav-item nav-link" href="views/portofolio.jsp" style="font-size:20px;"><i class="fa fa-list padding-righter"></i>Portofolio</a>
                 <a class="nav-item nav-link" href="views/edit_company.jsp" style="font-size:20px;"><i class="fa fa-pen-to-square padding-righter"></i>Edit Company</a>
                 <a class="nav-item nav-link" href="views/contact.jsp" style="font-size:20px;"><i class="fa fa-address-book padding-righter"></i>Contact</a>
                 <a class="nav-item nav-link" href="views/profile.jsp" style="font-size:20px;"><i class="fa fa-user padding-righter"></i>Profile</a>
