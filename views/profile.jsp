@@ -113,7 +113,7 @@
                     <h3><center>Company</center></h3>
 
                     <% if(company.investedAmount == 0) { %>
-                    <button type="button" id="btn-delete-company" class="btn btn-danger">Delete</button>
+                    <a href="../controllers/profile_controller.jsp" id="btn-delete-company" class="btn btn-danger">Delete</a>
                     <% } %>
                 </div>
 
@@ -171,7 +171,7 @@
             </div>
             <% } %>
             <div class="d-flex <%= company != null ? "justify-content-between" : "justify-content-start" %> mt-4 align-items-center" style="margin: 0px 12px;">
-                <a href="../controllers/logout_controller.jsp?id=<%= id %>" class="text-danger" style="text-decoration: none;">Log Out</a>
+                <a href="../controllers/logout_controller.jsp" class="text-danger" style="text-decoration: none;">Log Out</a>
 
                 <% if(company != null) { %>
                 <button type="submit" class="btn btn-primary">Update Company</button>
