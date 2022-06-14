@@ -94,7 +94,7 @@
                       <h5 class="card-title"><%= company.name %> (<%= company.categoryName %>) </h5>
                       <p class="card-text"><b><%= company.location %></b></p>
                       <p class="card-text"><%= company.description %></p>
-                      <p class="card-text">Investment Progress: <b><%= company.fulfilledPercentage %>%</b></p>
+                      <p class="card-text">Investment Progress: <b><%= (company.fulfilledPercentage / company.investmentStock) * 100 %>%</b></p>
                       <div class="progress">
                         <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= (company.fulfilledPercentage / company.investmentStock) * 100 %>%"  aria-valuenow="<%= (company.fulfilledPercentage / company.investmentStock) * 100 %>" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
