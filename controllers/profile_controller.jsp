@@ -10,5 +10,7 @@
     CompanyRepository companyRepository = new CompanyRepositoryImpl();
     companyRepository.deleteCompany(userId);
 
+    session.setAttribute("userType", "investor");
+
     response.sendRedirect("../home.jsp");
 %>
