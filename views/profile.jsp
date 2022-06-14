@@ -1,11 +1,14 @@
+<%@ page import = "java.text.NumberFormat" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Profile | TemuSaham</title>
     <style>
         html, body {
@@ -13,6 +16,11 @@
             padding: 0px;
             margin: 0px;
         }
+
+        .padding-righter {
+            padding-right: 12px;
+        }
+
         body {
             min-height: 100vh;
         }
@@ -47,6 +55,8 @@
     %>
 
     <%
+    NumberFormat formatPrice = NumberFormat.getInstance();
+
     UserRepository userRepository = new UserRepositoryImpl();
     CompanyRepository companyRepository = new CompanyRepositoryImpl();
 
@@ -66,8 +76,8 @@
     String password = passwordBuilder.toString();
 
     if(company != null) {
-        investedAmountString = "Rp" + String.format("%,.2f", company.investedAmount);
-        investmentTargetString = "Rp" + String.format("%,.2f", company.investmentTarget);
+        investedAmountString = "Rp. " + formatPrice.format(company.investedAmount);
+        investmentTargetString = "Rp. " + formatPrice.format(company.investmentTarget);
     }
     %>
 
@@ -106,6 +116,8 @@
                     <button type="button" id="btn-delete-company" class="btn btn-danger">Delete</button>
                     <% } %>
                 </div>
+
+                <br>
 
                 <div class="row">
                     <div class="col-sm d-flex align-items-center">
