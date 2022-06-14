@@ -50,7 +50,7 @@
       UserRepository userRepository = new UserRepositoryImpl();
       CompanyRepository companyRepository = new CompanyRepositoryImpl();
 
-      User user = userRepository.getUserById(Integer. parseInt(id));
+      User user = userRepository.getUserById(Integer.parseInt(id));
       Company company = companyRepository.getCompanyByUserEmail(user.email);
   
       String[] categoryOutputList = {"Technology", "Banking", "Food and Beverage"};
@@ -66,7 +66,7 @@
           name="createCompanyForm"
           onsubmit="return validateCreateCompany()"
         >
-          <%-- <input type="hidden" name="companyId" value="<%= companyId %>"> --%>
+          <input type="hidden" name="companyId" value="<%= company.id %>">
           <div class="form_input">
             <label for="name">Company Name</label>
             <input type="text" name="name" value="<%= company.name %>" readonly/>

@@ -121,7 +121,7 @@
 
                 <div class="row">
                     <div class="col-sm d-flex align-items-center">
-                        <img src="../assets/partner1.png" alt="" style="height: 200px; width: 200px;">
+                        <img src="<%= company.image %>" alt="" style="height: 200px; width: 200px;">
                     
                         <div class="container" style="margin-left: 12px;">
                             <h3 class="mb-0"><%= company.name %> (<%= company.foundedYear %>)</h3>
