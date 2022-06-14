@@ -482,7 +482,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
         query = "" +
         "UPDATE Users " +
         "   SET type = ? " +
-        " WHERE user_id = ? ";
+        " WHERE id = ? ";
 
         parameters = new Object[] { "investor", userId };
 
