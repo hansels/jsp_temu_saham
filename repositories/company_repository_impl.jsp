@@ -469,14 +469,22 @@ class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public boolean deleteCompany(int userId, int id) {
+    public boolean deleteCompany(int userId) {
         String query = "" +
         "DELETE FROM Companies " +
-        " WHERE id = ? " +
-        "   AND is_invested = 'N' " +
-        "   AND user_id = ?";
+        " WHERE user_id = ? " +
+        "   AND is_invested = 'N'";
 
         Object[] parameters = new Object[] { id, userId };
+
+        TemuSahamDbInstance.executeQuery(query, parameters);
+
+        query = "" +
+        "UPDATE Users " +
+        "   SET type = ? " +
+        " WHERE user_id = ? ";
+
+        parameters = new Object[] { "investor", userId };
 
         TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
@@ -527,6 +535,15 @@ class CompanyRepositoryImpl implements CompanyRepository {
 
         TemuSahamDbInstance.executeQuery(query, parameters);
         
+        query = "" +
+        "UPDATE Users " +
+        "   SET type = ? " +
+        " WHERE user_id = ? ";
+
+        parameters = new Object[] { "owner", userId };
+
+        TemuSahamDbInstance.executeQuery(query, parameters);
+
         Company result = getCompanyByUserEmail(company.owner.email);
         //System.out.println("Hello");
         
