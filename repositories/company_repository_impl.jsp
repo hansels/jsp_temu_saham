@@ -469,13 +469,14 @@ class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public boolean deleteCompany(int id) {
+    public boolean deleteCompany(int userId, int id) {
         String query = "" +
         "DELETE FROM Companies " +
         " WHERE id = ? " +
-        "   AND is_invested = 'N'";
+        "   AND is_invested = 'N' " +
+        "   AND user_id = ?";
 
-        Object[] parameters = new Object[] { id };
+        Object[] parameters = new Object[] { id, userId };
 
         TemuSahamDbInstance.executeQuery(query, parameters);
         return true;
