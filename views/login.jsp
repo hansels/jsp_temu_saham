@@ -78,7 +78,6 @@
                 alert("Password must not be empty");
                 return false;
             } else {
-                alert("Logged in successfully");
                 return true;
             }
         }
