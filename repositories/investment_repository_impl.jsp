@@ -66,6 +66,11 @@ class InvestmentRepositoryImpl implements InvestmentRepository {
                    investment.createdAt = df.parse(rowSet.getString(5) + "+0700");
                } catch (ParseException e) {
                    e.printStackTrace();
+                   try {
+                       investment.createdAt = df.parse(rowSet.getString(5)+ ":00+0700");
+                   } catch (ParseException e1) {
+                       e1.printStackTrace();
+                   }
                }
 
                investmentList.add(investment);
